@@ -39,4 +39,3 @@ function linkScript(file_name){
     script.src = "../js/" + file_name + ".js";
     head.appendChild(script);
 }
-

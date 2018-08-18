@@ -1,1 +1,1 @@
-window.alert("jkgfzldkgv");
+window.alert("linked");
