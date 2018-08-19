@@ -28,8 +28,8 @@ function linkRes(file_name, file_extension){
         default : window.alert("undefined resource type found : " + file_extension); break;
     }
     
-    link.href = "../" + file_extension + "/" + file_name + "." + file_extension;
-    
+    file_path = "../" + file_extension + "/" + file_name + "." + file_extension;
+    link.href = file_path;
     head.appendChild(link);
 }
 
