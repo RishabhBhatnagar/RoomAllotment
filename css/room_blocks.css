@@ -1,5 +1,6 @@
 .single_block{
-    height: 30dp;
-    width: 20dp;
+    height: 30;
+    width: 30;
     background: red;
+    margin: 5;
 }

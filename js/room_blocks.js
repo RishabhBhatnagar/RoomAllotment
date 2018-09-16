@@ -29,13 +29,13 @@ function create_table(nod, container){
 }
 
 function bind_radio_listener(name){
-    var radios = document.forms[name].elements["block"];
-    for(radio in radios){
-        radios[radio].onclick() = function() {
-            window.alert(this.value);
+    var radios = document.getElementsByName(name);
+    for(radio in radios) {
+        radios[radio].onclick = function() {
+            return alert(this.value);
         }
     }
 }
 
-bind_radio_listener("form_block");
+bind_radio_listener("block");
 create_table(12);
