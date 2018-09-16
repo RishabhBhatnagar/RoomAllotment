@@ -3,4 +3,10 @@
     width: 30;
     background: red;
     margin: 5;
+    padding:15;
+/*    float: left; */
+}
+
+.break_div{
+    white-space: pre;
 }

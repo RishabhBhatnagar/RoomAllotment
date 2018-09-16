@@ -55,7 +55,7 @@ function inflate_blocks(name){
         element.value = room_nos[index];
         element.name = room_nos[index];
         element.onclick = function() {
-            alert(element.value);
+            add_blobs(number_of_days);
         };
 
         //Append the element in page (in div).  
@@ -63,6 +63,27 @@ function inflate_blocks(name){
     }
 }
 
+function add_blobs(number_of_days){
+    breakpoints = [7, 14, 21, 28];
+    container = document.getElementById("month_view");
+    
+    for(i = 0; i<number_of_days; i++){
+        for(index in breakpoints){
+            if(i == breakpoints[index]){
+                break_div = document.createElement("p");
+                break_div.innerHTML = "&nbsp";
+                container.append(break_div);
+            }
+        }
+        day = i;
+        if(day <10){day = "0"+day;}
+        blobi = document.createElement("span");
+        blobi.innerHTML = day;
+        blobi.id = "blob"+i;
+        blobi.className = "single_block";
+        container.appendChild(blobi);
+    }
+}
 
 function load_default(radio_name){
     
@@ -72,5 +93,7 @@ function load_default(radio_name){
     radios[0].checked = "checked";
     inflate_blocks(radios[0].value);
 }
+
 load_default("block");
 create_table(12);
+number_of_days = 31;
