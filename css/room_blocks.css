@@ -1,2 +1,5 @@
-.{
+.single_block{
+    height: 30dp;
+    width: 20dp;
+    background: red;
 }
