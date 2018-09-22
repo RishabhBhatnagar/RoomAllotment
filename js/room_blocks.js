@@ -1,3 +1,5 @@
+number_of_days = 31;
+
 function bind_radio_listener(name){
     var radios = document.getElementsByName(name);
     for(radio in radios) {
@@ -40,7 +42,12 @@ function inflate_blocks(name){
 
 function add_blobs(number_of_days){
     breakpoints = [7, 14, 21, 28];
+    
     container = document.getElementById("month_view");
+
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
     
     for(i = 0; i<number_of_days; i++){
         for(index in breakpoints){
@@ -70,5 +77,3 @@ function load_default(radio_name){
 }
 
 load_default("block");
-create_table(12);
-number_of_days = 31;
