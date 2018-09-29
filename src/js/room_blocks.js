@@ -1,5 +1,3 @@
-number_of_days = 31;
-
 function bind_radio_listener(name){
     var radios = document.getElementsByName(name);
     for(radio in radios) {
@@ -77,3 +75,4 @@ function load_default(radio_name){
 }
 
 load_default("block");
+number_of_days = 31;
