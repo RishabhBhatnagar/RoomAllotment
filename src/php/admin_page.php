@@ -7,31 +7,59 @@
 	<center>
 		<?php 
 
-			function getCards( $commName,$commHead)
+			define("DB_USER", "root");
+			define("DB_PASS", "");
+			define("DB_NAME", "roomallotmentWDL");
+			define("DB_HOST", "localhost");
+			$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+			if ($mysqli->connect_errno) {
+		    	echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+			}
+
+			$query="select * from event_details;";
+			$result = $mysqli->query($query);
+			if(!$result){
+				echo "ERROR IN QUERY";
+			}
+			$cards=array();
+
+
+
+
+			for($i=0;$i<$result->num_rows;$i++){
+				$result->data_seek($i);
+				$row=$result->fetch_assoc();
+				array_push($cards,getCard("CODE-X",$row['title'] ,$row['descp'] ,$row['room_no'] ,$row['start_date'] ,$row['end_date'] ,$row['type'] ));
+			}
+
+
+
+
+
+			function getCard( $commName,$eventName,$eventDesc,$roomNo,$startDate,$endDate,$eventType)
 			{
 				return 
 				sprintf(
 					"<td>
 						<div class=indvCards>
-							Name Of Commitee
-							<h2> %s </h2>
-							Head Of Commitee
-						    <h2> %s </h2>
+							Name Of Commitee: <h2> %s </h2>
+							Name of Event: <h2> %s </h2>
+							Event Description: <h2> %s </h2>
+							Room No. : <h2> %s </h2>
+							Event Start Date: <h2> %s </h2>
+							Event End Date: <h2> %s </h2>
+							Type: <h2> %s </h2>
 					    </div>
 					</td>", 
-					$commName, $commHead
+					$commName,$eventName,$eventDesc,$roomNo,$startDate,$endDate,$eventType
 			    );
 			}
 
 			$noOfCards_perLine=3;
-			$name="CODE-X";
-			$cards=array(getCards("CODE_X","VERRUS"),getCards("CSIX","VERxvxvc"),getCards("IEEE","VEcsdcsdcUS"),getCards("ECELL","VEdS"),
-			getCards("CODE_X","VERRUS"),getCards("CSIX","VERxvxvc"),getCards("IEEE","VEcsdcsdcUS"),getCards("ECELL","VEdcsdcRRUS"),
-			getCards("CODE_X","VERRUS"),getCards("CSIX","VERxvxvc"),getCards("IEEE","VEcsdcsdcUS"),getCards("ECELL","VEdcsdcRRUS"),
-			getCards("CODE_X","VERRUS"),getCards("CSIX","VERxvxvc"),getCards("IEEE","VEcsdcsdcUS"),getCards("ECELL","VEdcsdcRRUS"));
+			
+		
 
 			$noOfCards=sizeof($cards);
-			echo '<script>console.log("'.$noOfCards.'")</script>';
 			print("<table>");
 			
 			$cardsleft = $noOfCards;
