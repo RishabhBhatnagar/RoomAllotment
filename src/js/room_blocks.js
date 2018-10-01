@@ -69,7 +69,7 @@ function load_default(radio_name){
     
     bind_radio_listener(radio_name);
     var radios = document.getElementsByName(radio_name);
-    
+    alert(radios[0]);
     radios[0].checked = "checked";
     inflate_blocks(radios[0].value);
 }
