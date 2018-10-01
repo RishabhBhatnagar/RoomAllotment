@@ -67,9 +67,15 @@ function add_blobs(number_of_days){
 
 function load_default(radio_name){
     
+    // Bind all radio listeners to change room booked states on selection change.
     bind_radio_listener(radio_name);
+    
+    //get array of radio button / radio group.
     var radios = document.getElementsByName(radio_name);
-    alert(radios[0]);
+    
+    alert(radios[0]);   //@debuggable : gives undeined.
+    
+    //set first radio button checked by default.
     radios[0].checked = "checked";
     inflate_blocks(radios[0].value);
 }
