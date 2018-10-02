@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
-<body>
+    <body>
 		<?php
 		    const db_name = "roomallotmentWDL";
 		    const db_uname = "root";
-		    const db_pswd = "";
 		    const host = "localhost";
-		    const dir_name = 'table_jsons';
-		    
-		    $table_names = array("event_details", "user");
+		    const db_pswd = "";
+		    const json_file_name = "all_tables_json";
+		    		    
+		    $table_names = array("event_details", "user", "room");
+		    $table_jsons = array();
 		    
 		    function get_json_data($table_name){
 			    $mysqli = new mysqli(host, db_uname, db_pswd, db_name);
@@ -27,22 +28,14 @@
 			    return json_encode($data);
 		    }
 		    
-            if ( !file_exists(dir_name) ) {
-                mkdir (dir_name, 0744);
-            }
- 
 		    for($i = 0; $i < count($table_names); $i++){
-		        $fp = fopen(dir_name."/".$table_names[$i].'.json', 'w');
-                fwrite($fp, get_json_data($table_names[$i]));
-                fclose($fp);
-		    }
+		        array_push($table_jsons, get_json_data($table_names[$i]));
+		    }	
 		    
-		    //specially for linux : 
-		    echo `sudo chmod 777 -R /opt/lampp/htdocs/`;
-		    echo `whoami`;
-		    echo `sudo chmod 777 -R ./ `;
+		    $json_dict = array_combine($table_names, $table_jsons);
+		    $fp = fopen(json_file_name.'.json', 'w');
+            fwrite($fp, json_encode($json_dict));
+            fclose($fp);
 		?>
-</body>
-
+    </body>
 </html>
-
