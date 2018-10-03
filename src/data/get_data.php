@@ -36,5 +36,8 @@
         "
         ;
         
+        function get_table_data_query($query){
+            return get_json_data($query);
+        }
     ?>
 <html>

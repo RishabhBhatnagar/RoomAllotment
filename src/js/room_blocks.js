@@ -1,3 +1,28 @@
+//hard coded array due to laziness. You may create a dictionary.
+classroom = [];
+lab = [];
+others = [];
+
+
+function seggregate_data(obj){
+    // alert(get_table_data_query("select * from user"));
+    
+    get_table_data_query("select * from user");
+
+    for(i = 0; i<obj.length; i++){
+        switch(obj[i]["room_type"]){
+            case "classroom" : classroom.push(obj[i]["room_no"]); break;
+            case "lab" : lab.push(obj[i]["room_no"]); break;
+            case "others" : others.push(obj[i]["room_no"]); break;
+        } 
+    }
+    /*
+        console.log(classroom);
+        console.log(lab);
+        console.log(others);
+    */
+}
+
 function bind_radio_listener(name){
     var radios = document.getElementsByName(name);
     for(radio in radios) {
@@ -9,9 +34,9 @@ function bind_radio_listener(name){
 
 function inflate_blocks(name){
     all_room_nos = {
-        "classroom" : ["23","32"], 
-        "lab"       : ["100", "101"], 
-        "others"    : ["41", "14"]
+        "classroom" : classroom, 
+        "lab"       : lab, 
+        "others"    : others
     };
     div_ele = document.getElementById("list_blocks");
     
@@ -67,13 +92,14 @@ function add_blobs(number_of_days){
 
 function load_default(radio_name){
     
+    //segregate all table room by room_type.
+    seggregate_data(get_table_data("room"));
+    
     // Bind all radio listeners to change room booked states on selection change.
     bind_radio_listener(radio_name);
     
     //get array of radio button / radio group.
     var radios = document.getElementsByName(radio_name);
-    
-    alert(radios[0]);   //@debuggable : gives undeined.
     
     //set first radio button checked by default.
     radios[0].checked = "checked";

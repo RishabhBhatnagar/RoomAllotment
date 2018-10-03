@@ -47,3 +47,17 @@ function get_table_data(table_name){
 	    
         */
 }
+
+
+function get_table_data_query(qry){
+    qry += ";";
+    alert('Query: ' + qry);
+    var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200)
+                alert(this.responseText);
+        };
+    // xmlhttp.open("GET", "./get_tables.php?query="+qry, true);
+    xmlhttp.open("GET", "../data/get_tables.php?query="+qry, true);
+    xmlhttp.send();
+}
