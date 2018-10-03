@@ -3,12 +3,8 @@ classroom = [];
 lab = [];
 others = [];
 
-
 function seggregate_data(obj){
     // alert(get_table_data_query("select * from user"));
-    
-    get_table_data_query("select * from user");
-
     for(i = 0; i<obj.length; i++){
         switch(obj[i]["room_type"]){
             case "classroom" : classroom.push(obj[i]["room_no"]); break;
@@ -93,7 +89,7 @@ function add_blobs(number_of_days){
 function load_default(radio_name){
     
     //segregate all table room by room_type.
-    seggregate_data(get_table_data("room"));
+    get_table_data_query("select * from room");
     
     // Bind all radio listeners to change room booked states on selection change.
     bind_radio_listener(radio_name);

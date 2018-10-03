@@ -1,11 +1,16 @@
-function get_table_data(table_name){
+function get_table_data_query(qry){
     //calling a php file : https://www.w3schools.com/php/php_ajax_php.asp
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "get_data.php", true);
+    xmlhttp.open("GET", "../data/get_data.php?query="+qry, true);
     xmlhttp.send();
     // updated the json file from the server.
 
 
+    xmlhttp.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200){
+                    
+                }
+    }
 
     //getting data from https://www.taniarascia.com/how-to-use-the-javascript-fetch-api-to-get-json-data/
     fetch('./all_tables_json.json').then(response => {
@@ -16,8 +21,10 @@ function get_table_data(table_name){
     });
     tables_json_string = localStorage.getItem("jsonData");
 
+    alert(tables_json_string);
     var obj = JSON.parse(tables_json_string);
-    return JSON.parse(obj[table_name]);
+    alert(obj['room_type']);
+    return obj;
 
         /*
             Sample Data :
@@ -48,16 +55,17 @@ function get_table_data(table_name){
         */
 }
 
-
+/*
 function get_table_data_query(qry){
     qry += ";";
-    alert('Query: ' + qry);
     var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
-                if(this.readyState == 4 && this.status == 200)
-                alert(this.responseText);
+                if(this.readyState == 4 && this.status == 200){
+                    
+                }
         };
     // xmlhttp.open("GET", "./get_tables.php?query="+qry, true);
     xmlhttp.open("GET", "../data/get_tables.php?query="+qry, true);
     xmlhttp.send();
-}
+    return this.responseText;
+}*/
