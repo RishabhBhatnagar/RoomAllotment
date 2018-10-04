@@ -29,29 +29,29 @@
 			for($i=0;$i<$result->num_rows;$i++){
 				$result->data_seek($i);
 				$row=$result->fetch_assoc();
-				array_push($cards,getCard("CODE-X",$row['title'] ,$row['descp'] ,$row['room_no'] ,$row['start_date'] ,$row['end_date'] ,$row['type'] ));
+				array_push($cards,getCard("CODE-X",$row['title'], $row['room_no'] ,$row['start_date'] ,$row['end_date'] ,$row['type'] ));
 			}
 
 
 
 
 
-			function getCard( $commName,$eventName,$eventDesc,$roomNo,$startDate,$endDate,$eventType)
+			function getCard( $commName,$eventName,$roomNo,$startDate,$endDate,$eventType)
 			{
 				return 
 				sprintf(
 					"<td>
 						<div class=indvCards>
-							Name Of Commitee: <h2> %s </h2>
-							Name of Event: <h2> %s </h2>
-							Event Description: <h2> %s </h2>
-							Room No. : <h2> %s </h2>
-							Event Start Date: <h2> %s </h2>
-							Event End Date: <h2> %s </h2>
-							Type: <h2> %s </h2>
+							Name Of Commitee: <h3> %s </h3>
+							Name of Event: <h3> %s </h3>
+							Room No. : <h3> %s </h3>
+							Event Start Date: <h3> %s </h3>
+							Event End Date: <h3> %s </h3>
+							Type: <h3> %s </h3>
+							<button type=\"button\">Click Me!</button>
 					    </div>
 					</td>", 
-					$commName,$eventName,$eventDesc,$roomNo,$startDate,$endDate,$eventType
+					$commName,$eventName,$roomNo,$startDate,$endDate,$eventType
 			    );
 			}
 
