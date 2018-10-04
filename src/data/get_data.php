@@ -37,8 +37,10 @@
     ;
     
     function get_table_data_query($query){
-        return get_json_data($query);
+        return json_decode(get_json_data($query), true);
     }
+
+    // for javascript.
     if(isset($_GET['query'])){
         get_table_data_query($_GET['query']);
     }

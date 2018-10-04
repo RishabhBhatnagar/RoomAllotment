@@ -1,4 +1,3 @@
-
 <?php
 
     const db_name = "roomallotmentWDL";
