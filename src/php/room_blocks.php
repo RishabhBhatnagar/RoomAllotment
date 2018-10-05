@@ -1,31 +1,17 @@
 <html>
-<!--http://jqueryui.com/datepicker/-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#datepicker" ).
-        datepicker({
-       		onSelect: function(dateText, inst) {         //https://stackoverflow.com/questions/27506111/jquery-datepicker-change-event-trigger-and-inputs-default-change-event
-            	//dateText;
-        	}
-    	});
-  } );
-  </script>
-
 
 <script type="text/javascript" src = "../data/get_data.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/room_blocks.css">
     <form name=form_block action="" method="post" id="form_block">
-        <input type="text" id="datepicker" name="datepicker" readonly placeholder = "Enter the date"></p>
+        
         <input type=radio name="block" id=classroom value=classroom><label for=classroom>classroom</label>
         <input type=radio name="block" id=lab value=lab><label for=lab>lab</label>
-        <input type=radio name="block" id=others value=others><label for=others>others</label>
+        <input type=radio name="block" id=others value=others><label for=others>others</label><br>
+        <input type=date placeholder="Enter the date.">
         <div id=list_blocks style="margin:20"></div>
         <div id=month_view style="margin-top:50"></div>
         <input name="submit" type="submit" id="submit" style="display:none"/>
+        
         <input type="hidden" id="hide" name="hide">
     </form>
 
@@ -90,7 +76,6 @@
 				        element.onclick = function() {
 				        	document.getElementById(\"hide\").value = this.value;
 				        	document.getElementById(\"submit\").click();
-
 				        };
 
 				        //Append the element in page (in div).
@@ -159,20 +144,13 @@
         	</script>
         ";
 
-
-
-
         if(isset($_POST["submit"]) and $_POST["hide"] != "null"){
-        	/*echo $_POST["hide"];
-        	echo $_POST["datepicker"];*/
-        	$_SESSION["datepicker"] = $_POST["datepicker"];
-        	$_SESSION["variables_set"] = true;
-
+        	
         	print_r(
 	        	get_table_data_query("
 		        	SELECT MONTH(end_date)
 		        	FROM event_details
-		        	WHERE start_date = str_to_date('".$_POST["datepicker"]."', '%m/%d/%Y')
+		        	WHERE start_date = str_to_date('"."10/04/2018"."', '%m/%d/%Y')
 		        		and is_completed = false
 		        		and is_accepted;"
 		        )
@@ -186,14 +164,7 @@
         	";
         }
         if(isset($_POST["submit"])){
-        	echo "<br><br><br><br><br>s<br>".$_POST["datepicker"]."<br>s<br><br><br><br>";
-        	if($_SESSION["variables_set"]){
-	        	echo "
-	        	    <script>
-	        	        document.getElementById(\"datepicker\").value = ".$_SESSION["datepicker"]."
-	        		</script> 
-	        	";	
-        	}
+        	    
         	
         }
     ?>
