@@ -29,29 +29,31 @@
 			for($i=0;$i<$result->num_rows;$i++){
 				$result->data_seek($i);
 				$row=$result->fetch_assoc();
-				array_push($cards,getCard("CODE-X",$row['title'], $row['room_no'] ,$row['start_date'] ,$row['end_date'] ,$row['type'] ));
+				array_push($cards,getCard("CODE-X",$row['title'], $row['room_no'] ,$row['start_date'] , $row['event_id']));
 			}
 
 
 
 
 
-			function getCard( $commName,$eventName,$roomNo,$startDate,$endDate,$eventType)
+			function getCard( $commName,$eventName,$roomNo,$startDate,$eventId)
 			{
 				return 
 				sprintf(
 					"<td>
-						<div class=indvCards>
-							Name Of Commitee: <h3> %s </h3>
-							Name of Event: <h3> %s </h3>
-							Room No. : <h3> %s </h3>
-							Event Start Date: <h3> %s </h3>
-							Event End Date: <h3> %s </h3>
-							Type: <h3> %s </h3>
-							<button type=\"button\">Click Me!</button>
-					    </div>
+						<form action=\"admin_event_details.php\" method=\"post\">
+							<div class=indvCards>
+								Name Of Commitee: <h3> %s </h3>
+								Name of Event: <h3> %s </h3>
+								Room No. : <h3> %s </h3>
+								Event Start Date: <h3> %s </h3>
+								<input type=\"submit\" value=\"Know more..\" >
+								<input type=hidden name=event_id value=".$eventId.">
+					    	</div> 
+						</form>
+						
 					</td>", 
-					$commName,$eventName,$roomNo,$startDate,$endDate,$eventType
+					$commName,$eventName,$roomNo,$startDate
 			    );
 			}
 
