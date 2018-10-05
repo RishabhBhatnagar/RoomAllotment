@@ -15,17 +15,23 @@
 	    }
 	    $query = $qry;
 	    $result = $mysqli->query($query);
-	    if(!$result){
-		    echo "ERROR IN QUERY";
+	    
+	    foreach(array("update", "modify", "alert", "delete", "trunc") as $command){
+	        if(stristr($query, $command)){
+	            return "";
+	        }
 	    }
-	    $data=array();
-	    while($r = mysqli_fetch_assoc($result)){
-	        $data[] = $r;
-	    }
-	 /*   $fp = fopen(json_file_name.'.json', 'w');
-        fwrite($fp, json_encode($data));
-        fclose($fp);*/
-	    return json_encode($data);
+	        if(!$result){
+		        echo "ERROR IN QUERY";
+	        }
+	        $data=array();
+	        while($r = mysqli_fetch_assoc($result)){
+	            $data[] = $r;
+	        }
+	     /*   $fp = fopen(json_file_name.'.json', 'w');
+            fwrite($fp, json_encode($data));
+            fclose($fp);*/
+	        return json_encode($data);
     }
     /*
     for($i = 0; $i < count($table_names); $i++){
