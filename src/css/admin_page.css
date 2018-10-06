@@ -20,26 +20,6 @@
 }
 
 
-.card__logo {
-  margin: auto;
-  width: 120px;
-  transform: translateY(-50%);
-  margin-bottom: -40px;
-}
 
-.card__info {
-  text-align: center;
-}
 
-.card__info p {
-  font-size: 10px;
-}
 
-.card__footer {
-  background: red;
-  color: white;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 10px 0;
-  font-weight: bold;
-}
