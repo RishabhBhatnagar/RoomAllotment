@@ -69,15 +69,7 @@
 			//calling the query!!!
 			dynamicQuery("select * from event_details e,booking_detail b, user u where e.eid=b.eid and e.uid=u.uid;");
 
-		
 		?>
-		
-
-		
-
-	
-
-
 		
 	</center>
 	
