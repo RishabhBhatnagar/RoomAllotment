@@ -6,7 +6,8 @@
 <body>
 	<center>
 		<?php 
-
+			include '../data/get_data.php';
+/*
 			define("DB_USER", "root");
 			define("DB_PASS", "");
 			define("DB_NAME", "roomallotmentWDL");
@@ -17,24 +18,47 @@
 			}
 
 			$query="select * from event_details;";
+
 			$result = $mysqli->query($query);
 			if(!$result){
 				echo "ERROR IN QUERY";
-			}
-			$cards=array();
+			}*/
 
+			function dynamicQuery($query,$noOfCards_perLine=3)
+			{
+				$cards=array();
+				$result=get_table_data_query($query); 
+				for($i=0;$i<count($result);$i++){
+					$row=$result[$i];
+					array_push($cards,getCard("CODE-X",$row['title'], $row['room_no'] ,$row['start_date'], $row['event_id']));
+				}
 
+				$noOfCards=sizeof($cards);
+				print("<table>");
+				
+				$cardsleft = $noOfCards;
+				while ($cardsleft > 0) {
+					print("<tr>");
+					if($cardsleft > $noOfCards_perLine){
+						# SHOW ALL NUMBER OF CARDS.
+						for($i = 0; $i<$noOfCards_perLine; $i++){
+							print($cards[$i + $noOfCards - $cardsleft]);
+							echo '<script>console.log("'.($i + $noOfCards - $cardsleft).'")</script>';
+						}
+						$cardsleft -= $noOfCards_perLine;
+						echo '<script>console.log("next")</script>';
+					} else{
+						while($cardsleft != 0){
+							print($cards[$noOfCards - $cardsleft]);
+							echo '<script>console.log("'.($noOfCards - $cardsleft).'")</script>';
+							$cardsleft -= 1;
+						}
+					}
+					print("</tr>");
+					}
+				print("</table>");
 
-
-			for($i=0;$i<$result->num_rows;$i++){
-				$result->data_seek($i);
-				$row=$result->fetch_assoc();
-				array_push($cards,getCard("CODE-X",$row['title'], $row['room_no'] ,$row['start_date'] , $row['event_id']));
-			}
-
-
-
-
+			}//dynamicQuery
 
 			function getCard( $commName,$eventName,$roomNo,$startDate,$eventId)
 			{
@@ -55,37 +79,11 @@
 					</td>", 
 					$commName,$eventName,$roomNo,$startDate
 			    );
-			}
+			}//getCards
 
-			$noOfCards_perLine=3;
-			
+			dynamicQuery("select * from event_details;");
+
 		
-
-			$noOfCards=sizeof($cards);
-			print("<table>");
-			
-			$cardsleft = $noOfCards;
-			while ($cardsleft > 0) {
-				print("<tr>");
-				if($cardsleft > $noOfCards_perLine){
-					# SHOW ALL NUMBER OF CARDS.
-					for($i = 0; $i<$noOfCards_perLine; $i++){
-						print($cards[$i + $noOfCards - $cardsleft]);
-						echo '<script>console.log("'.($i + $noOfCards - $cardsleft).'")</script>';
-					}
-					$cardsleft -= $noOfCards_perLine;
-					echo '<script>console.log("next")</script>';
-				} else{
-					while($cardsleft != 0){
-						print($cards[$noOfCards - $cardsleft]);
-						echo '<script>console.log("'.($noOfCards - $cardsleft).'")</script>';
-						$cardsleft -= 1;
-					}
-				}
-				print("</tr>");
-				}
-			print("</table>");
-
 		?>
 		
 
