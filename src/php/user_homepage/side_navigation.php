@@ -28,6 +28,23 @@
             ?>
         </div>
         
+        
+        
+        
+        <script>
+            function guest_committee_select(th){
+                a = document.getElementById("a_"+th.value);
+                c = document.getElementById(th.value);
+                hrefs = a.href.split('?');
+                a.href = hrefs[0]+"?"+hrefs[1]+c.checked;
+                alert(a.href);
+                a.click();
+            }
+        </script>
+        
+        
+        
+        
         <?php   
             $bars = array(
                 "a" => array("previous_events", "pending_events"),
@@ -36,16 +53,24 @@
             );
             if(isset($_POST["who"])){
                 $display_bars = $bars[$_POST["who"]];
+                
                 foreach($display_bars as $bar){
+                    
                     if($bar == "comm_name"){
+                        echo "<form action=\"\" method=\"post\">";
                         for($i = 0; $i < count($committees); $i++){
-                    echo "
-                    <div id=\"div_".$committees[$i]["comm_name"]."\" style=\"display:none\">
-                        <input type=checkbox  value=\"".$committees[$i]["comm_name"]."\">".$committees[$i]["comm_name"]."<br>
-                    </div>
-                    ";
-                }       
-                    }else{
+                            echo sprintf("
+                            <label  for=\"%s\" ;\">
+                                <div id=\"div_%s\" style=\"display:block\">
+                                    <input type=checkbox id=\"%s\" value=\"%s\" onchange=\"guest_committee_select(this)\">%s<br>
+                                    <a method=\"get\" href=\"committee_events.php?c_name=".$committees[$i]["comm_name"]."\" target=\"main_frame\" id=a_%s name=a_%s style=\"display:block\"></a><br>
+                                </div>
+                            </label>
+                            ", $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"]);
+                        }
+                        echo "</form>";
+                
+                    } else{
                         echo "
                             <script>
                                 document.getElementById(\"".$bar."\").style.display = \"block\";
