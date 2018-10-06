@@ -7,22 +7,6 @@
 	<center>
 		<?php 
 			include '../data/get_data.php';
-/*
-			define("DB_USER", "root");
-			define("DB_PASS", "");
-			define("DB_NAME", "roomallotmentWDL");
-			define("DB_HOST", "localhost");
-			$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-			if ($mysqli->connect_errno) {
-		    	echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-			}
-
-			$query="select * from event_details;";
-
-			$result = $mysqli->query($query);
-			if(!$result){
-				echo "ERROR IN QUERY";
-			}*/
 
 			function dynamicQuery($query,$noOfCards_perLine=3)
 			{
@@ -30,9 +14,9 @@
 				$result=get_table_data_query($query); 
 				for($i=0;$i<count($result);$i++){
 					$row=$result[$i];
-					array_push($cards,getCard("CODE-X",$row['title'], $row['room_no'] ,$row['start_date'], $row['event_id']));
+					array_push($cards,getCard($row['comm_name'],$row['title'], $row['room_no'] ,$row['event_date'], $row['eid']));
 				}
-
+				
 				$noOfCards=sizeof($cards);
 				print("<table>");
 				
@@ -60,6 +44,7 @@
 
 			}//dynamicQuery
 
+
 			function getCard( $commName,$eventName,$roomNo,$startDate,$eventId)
 			{
 				return 
@@ -81,7 +66,8 @@
 			    );
 			}//getCards
 
-			dynamicQuery("select * from event_details;");
+			//calling the query!!!
+			dynamicQuery("select * from event_details e,booking_detail b, user u where e.eid=b.eid and e.uid=u.uid;");
 
 		
 		?>
