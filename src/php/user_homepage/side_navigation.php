@@ -18,7 +18,7 @@
         
         <?php
             $_POST["who"] = "a";
-            include "../data/get_data.php";
+            include "../../data/get_data.php";
             $committees = get_table_data_query("select distinct committee_name from user");
             $bars = array(
                 "a" => array("previous_events", "pending_events"),
@@ -34,9 +34,7 @@
                         </script>
                     ";
                 }
-                foreach($committees as $committee){
-                    echo
-                }
+                
             }
         ?>
         
