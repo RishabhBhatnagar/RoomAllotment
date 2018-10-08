@@ -28,16 +28,12 @@
             ?>
         </div>
         
-        
-        
-        
         <script>
             function guest_committee_select(th){
                 a = document.getElementById("a_"+th.value);
                 c = document.getElementById(th.value);
-                hrefs = a.href.split('?');
-                a.href = hrefs[0]+"?"+hrefs[1]+c.checked;
-                alert(a.href);
+                hrefs = a.href.split('&');
+                a.href = hrefs[0]+"&checked="+c.checked;
                 a.click();
             }
         </script>
@@ -62,7 +58,7 @@
                             echo sprintf("
                             <label  for=\"%s\" ;\">
                                 <div id=\"div_%s\" style=\"display:block\">
-                                    <input type=checkbox id=\"%s\" value=\"%s\" onchange=\"guest_committee_select(this)\">%s<br>
+                                    <input type=radio id=\"%s\" value=\"%s\" onchange=\"guest_committee_select(this)\" name=random_name>%s<br>
                                     <a method=\"get\" href=\"committee_events.php?c_name=".$committees[$i]["comm_name"]."\" target=\"main_frame\" id=a_%s name=a_%s style=\"display:block\"></a><br>
                                 </div>
                             </label>

@@ -37,14 +37,17 @@
 						<td>".$value."</td>
 					</tr>";
 			}
+			if(!isset($_POST["no_access"])){
 			echo 
 			"<tr> 
 					<input type=\"hidden\" name=\"hide\" value=".$id.">
 					<td><input name=accept type=submit value=ACCEPT></td>
 					<td><input name=reject type=submit value=REJECT></td>
-				</tr>
+				</tr>";
+			}
+			echo "
 				<tr>	
-					<td colspan=\"2\"><input type=\"button\" value=\"BACK\" onclick=\"window.location.href='admin_page.php'\"></td>
+					<td colspan=\"2\"><input type=\"button\" value=\"BACK\" onclick=\"window.history.back()\"></td>
 				</tr>
 			</table>
 			</form>";

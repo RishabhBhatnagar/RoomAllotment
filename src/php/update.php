@@ -16,7 +16,7 @@
         window.location.href='admin_page.php';
     }
         else{
-        	window.location.href='admin_page.php';
+        	window.history.back();
         }
     </script>
     ";
