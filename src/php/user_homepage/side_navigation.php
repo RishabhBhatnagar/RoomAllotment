@@ -10,13 +10,23 @@
         </style>
     </head>
     <body>
+        <?php
+            $_POST["who"] = "u";
+            $_POST["id"] = 102;
+            include "../../data/get_data.php";
+            ?>
         <div style="">
-            <a method="get" href="previous_events.php?id=12" target="main_frame" id="previous_events" name="previous_events" style="display:none">Previous Events</a><br>
-            <a href = "pending_events.php" target="main_frame" id = pending_events name = "pending_events" style="display:none">Pending Events</a><br>
-            <a href = "new_events.php" target="main_frame" id ="new_events" name = "new_events" style="display:none">New Events</a>
+            <a method="get" href="previous_events.php?id=<?php echo $_POST["id"] ?>" target="main_frame" id="previous_events" name="previous_events" style="display:none">Previous Events</a><br>
+            <a href = "../admin_page.php?id=<?php echo $_POST["id"] ?>" target="main_frame" method="get" id = pending_events name = "pending_events" style="display:none">Pending Events</a>
+            <a href = "new_events.php" target="main_frame" id ="new_events" name = "new_events" style="display:none">New Events</a><br>
+            <a method="get" href="rejected.php?id=<?php echo $_POST["id"] ?>" target="main_frame" id="rejected_events" name="rejected_events" style="display:none">Rejected Events</a><br>
+            <a method="get" href="acepted.php?id=<?php echo $_POST["id"] ?>" target="main_frame" id="accepted_events" name="accepted_events" style="display:none">Accepted Events</a><br>
+            
+            
+            
+            
+            
             <?php
-                $_POST["who"] = "g";
-                include "../../data/get_data.php";
                 $committees = get_table_data_query("select distinct comm_name from user where comm_name != 'admin'");
                 for($i = 0; $i < count($committees); $i++){
                     echo "
@@ -43,11 +53,30 @@
         
         <?php   
             $bars = array(
-                "a" => array("previous_events", "pending_events"),
+                "a" => array("pending_events", "acepted", "rejected_events", "accepted_events"),
                 "u" => array("previous_events", "pending_events", "new_events"),
                 "g" => array("comm_name")
             );
+      
+        
             if(isset($_POST["who"])){
+            
+                if($_POST["who"] == "a"){
+                    echo "
+                        <script>
+                            document.getElementById(\"pending_events\").click();
+                        </script>
+                    ";
+                }
+                if($_POST["who"] == "u"){
+                    echo "
+                        <script>
+                            document.getElementById(\"pending_events\").click();
+                        </script>
+                    ";
+                } 
+            
+            
                 $display_bars = $bars[$_POST["who"]];
                 
                 foreach($display_bars as $bar){
