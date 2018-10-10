@@ -1,7 +1,7 @@
 <html>
 <link rel="stylesheet" type="text/css" href="../../css/room_blocks.css">
     <form name=form_block action="" method="post" id="form_block">
-
+        
         <input type=radio name="block" id=classroom value=classroom><label for=classroom>classroom</label>
         <input type=radio name="block" id=lab value=lab><label for=lab>lab</label>
         <input type=radio name="block" id=others value=others><label for=others>others</label><br>
