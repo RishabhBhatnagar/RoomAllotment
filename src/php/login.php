@@ -5,7 +5,9 @@
     
     <body>
         
-        <div id="particles-js"></div>
+        <div id="particles-js">
+            <span style="color:#ffffff">mjflh</span> 
+        </div>
         <script src="../particles.js"></script>
         <script>
             particlesJS.load('particles-js', '../particles.json', function(){
