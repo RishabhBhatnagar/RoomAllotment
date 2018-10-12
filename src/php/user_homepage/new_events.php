@@ -35,7 +35,39 @@
 				others = [];
 
 				function date_time() {
-				    alert('date changed');
+					chosen_date = document.getElementById('date_picker').value;
+				    var today = new Date();
+					var dd = today.getDate();
+					var mm = today.getMonth()+1; //January is 0!
+					var yyyy = today.getFullYear();
+
+					if(dd<10) {
+					    dd = '0'+dd
+					} 
+
+					if(mm<10) {
+					    mm = '0'+mm
+					} 
+
+					today = yyyy + '-' + mm + '-' + dd ;
+
+				if( new Date(chosen_date).getTime() >= new Date(today).getTime() )
+				{
+					if(document.getElementById('classroom').checked){
+						alert('classroom');
+						inflate_blocks('classroom');
+					}
+					if(document.getElementById('lab').checked){
+						inflate_blocks('lab');
+					}
+					if(document.getElementById('others').checked){
+						inflate_blocks('others');
+					}
+					return inflate_blocks()
+				} else{
+					alert('Date should be greater than or equal to current Date.');
+				}
+
 				}
 				function seggregate_data(obj){
 				    for(i = 0; i<obj.length; i++){
@@ -119,6 +151,7 @@
 				    	if(radios[radio] == \"[object HTMLInputElement]\")
 				    	{
 				    		radios[radio].onclick = function() {
+				    			if(document.getElementById('date_picker').value != \"\")
 				            	return inflate_blocks(this.value);
 				        	}
 				    	}
