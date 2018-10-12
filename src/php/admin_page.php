@@ -7,10 +7,20 @@
 	<center>
 		<?php 
 			include '../data/get_data.php';
+			session_start();
+
+            function toast($stri){
+
+                echo "<script>
+                        alert('$stri');
+                        </script>";
+
+            }
+
 			function dynamicQuery($query,$noOfCards_perLine=3)
 			{
 				$cards=array();
-				$result=get_table_data_query($query); 
+				$result=get_table_data_query($query);
 				for($i=0;$i<count($result);$i++){
 					$row=$result[$i];
 					array_push($cards,getCard($row['comm_name'],$row['title'], $row['room_no'] ,$row['event_date'], $row['eid']));
@@ -64,14 +74,13 @@
 					$commName,$eventName,$roomNo,$startDate
 			    );
 			}//getCards
+
 			
-			
-			
-            if(isset($_GET["id"])){
-                dynamicQuery("select * from event_details e,booking_detail b, user u where e.eid=b.eid and e.uid=u.uid and status='p' and u.uid=".$_GET["id"].";");
+            if(isset($_SESSION["id"])){
+                dynamicQuery("select * from event_details e,booking_detail b, user u where e.eid=b.eid and e.uid=u.uid and status='p' and u.uid=".$_SESSION["id"].";");
             } else{
 			    //calling the query!!!
-			    dynamicQuery("select * from event_details e,booking_detail b, user u where e.eid=b.eid and e.uid=u.uid and status='p';");
+			    //dynamicQuery("select * from event_details e,booking_detail b, user u where e.eid=b.eid and e.uid=u.uid and status='p';");
             }
 		?>
 		

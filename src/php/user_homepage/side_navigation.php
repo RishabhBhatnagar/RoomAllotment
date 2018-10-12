@@ -44,41 +44,52 @@ include "../../data/get_data.php";
 
 
 
-
 <?php
-$bars = array(
-    "a" => array("pending_events", "acepted", "rejected_events", "accepted_events"),
-    "u" => array("previous_events", "pending_events", "new_events"),
-    "g" => array("comm_name")
-);
+
+    function toast($stri){
+
+        echo "<script>
+                    alert('$stri');
+                    </script>";
+
+    }
 
 
-if(isset($_REQUEST["who"])){
+    $bars = array(
+        "a" => array("pending_events", "acepted", "rejected_events", "accepted_events"),
+        "u" => array("previous_events", "pending_events", "new_events"),
+        "g" => array("comm_name")
+    );
 
-    if($_REQUEST["who"] == "a"){
-        echo "
+    session_start();
+
+    if(isset($_SESSION["id"])){
+        
+        $user_data = get_table_data_query("SELECT * FROM user WHERE uid=".$_SESSION["id"])[0];
+        $who = $user_data["type_of_user"];
+            if($who == "a" and !isset($_REQUEST["guest"])){
+                echo "
                         <script>
                             document.getElementById(\"pending_events\").click();
                         </script>
                     ";
-    }
-    if($_REQUEST["who"] == "u"){
-        echo "
+            }
+            if($who == "u"){
+                echo "
                         <script>
                             document.getElementById(\"pending_events\").click();
                         </script>
                     ";
-    }
+            }
 
+            $display_bars = $bars[$who];
 
-    $display_bars = $bars[$_REQUEST["who"]];
+            foreach($display_bars as $bar){
 
-    foreach($display_bars as $bar){
-
-        if($bar == "comm_name"){
-            echo "<form action=\"\" method=\"post\">";
-            for($i = 0; $i < count($committees); $i++){
-                echo sprintf("
+                if($bar == "comm_name"){
+                    echo "<form action=\"\" method=\"post\">";
+                    for($i = 0; $i < count($committees); $i++){
+                        echo sprintf("
                             <label  for=\"%s\" ;\">
                                 <div id=\"div_%s\" style=\"display:block\">
                                     <input type=radio id=\"%s\" value=\"%s\" onchange=\"guest_committee_select(this)\" name=random_name>%s<br>
@@ -86,19 +97,19 @@ if(isset($_REQUEST["who"])){
                                 </div>
                             </label>
                             ", $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"]);
-            }
-            echo "</form>";
+                    }
+                    echo "</form>";
 
-        } else{
-            echo "
+                } else{
+                    echo "
                             <script>
                                 document.getElementById(\"".$bar."\").style.display = \"block\";
                             </script>
                         ";
-        }
+                }
+            }
     }
-}
-?>
 
+?>
 </body>
 <html>

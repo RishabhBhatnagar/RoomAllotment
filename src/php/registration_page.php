@@ -8,8 +8,14 @@
     $hashed = hash('sha512', $pswd);
     $user_data = get_table_data_query("select * from user where comm_name = '$uname' and pswd = '$hashed'; ");
 
+    function toast($stri){
+        echo "<script>
+            alert('$stri');
+            </script>";
 
-    $_SESSION["id"] = $user_data[0]["id"];
+    }
+
+    $_SESSION["id"] = $user_data[0]["uid"];
 
     echo "
         <input type=\"hidden\" name=\"username\" value=\"".$_REQUEST["username"]."\">
