@@ -4,7 +4,6 @@
             body{
                 width:90%;
                 height:95%;
-<<<<<<< HEAD
                 border:6px outset orange;
                 background:#ffffff
             }

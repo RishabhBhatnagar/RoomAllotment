@@ -1,32 +1,42 @@
 
 <html>
-    <?php
+<?php
+    include "../data/get_data.php";
+    session_start();
+    $uname = $_REQUEST["username"];
+    $pswd = trim($_REQUEST["password"]);
+    $hashed = hash('sha512', $pswd);
+    $user_data = get_table_data_query("select * from user where comm_name = '$uname' and pswd = '$hashed'; ");
 
-        $uname = $_POST["username"];
-        $pswd = trim($_POST["password"]);
 
-		define("DB_USER", "root");
-		define("DB_PASS", "");
-		define("DB_NAME", "roomallotmentWDL");
-		define("DB_HOST", "localhost");
-		
-		$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-		if ($mysqli->connect_errno) {
-		    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-		}
-		
-				$hashed = hash('sha512', $pswd);
-				$query = "select * from user where committee_name = '$uname' and pswd = '$hashed'; ";
-				$result = $mysqli->query($query);
-				if(!$result){
-					echo "ERROR IN QUERY";
-				}
+    $_SESSION["id"] = $user_data[0]["id"];
 
-				if($result->num_rows == 0){
-					echo "no rows found";
-				} else{
-					echo "user found";
-				}
-		$mysqli->close();
-    ?>
+    echo "
+        <input type=\"hidden\" name=\"username\" value=\"".$_REQUEST["username"]."\">
+        <input type=\"hidden\" name=\"password\" value=\"".$_REQUEST["password"]."\">
+        <input type=\"hidden\" name=\"id\" value=\"".$user_data[0]["uid "]."\">
+    ";
+
+    if(!$user_data){
+        echo "
+                        <script>
+                            alert('not found');
+                            window.history.back();
+                        </script>
+                        ";
+    }
+    else{
+        echo "				
+                            <form action=\"user_homepage/user_homepage.php\" method=\"post\">
+                                <input type=\"hidden\" name=\"who\" value=".$user_data[0]['type_of_user'].">
+                                <input type=submit id=tp>
+                            </form>
+                        ";
+        echo "				
+                            <script type=\"text/javascript\">
+                                document.getElementById(\"tp\").click();
+                            </script>
+                        ";
+    }
+?>
 </html>
