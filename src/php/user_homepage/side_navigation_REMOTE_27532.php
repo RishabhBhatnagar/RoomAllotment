@@ -45,8 +45,6 @@ style=\"display:none\">                         <input type=checkbox  value=\"
                 "u" => array("previous_events", "pending_events", "new_events"),
                 "g" => array("comm_name")
             );
-      
-        
             if(isset($_POST["who"])){
                 $display_bars = $bars[$_POST["who"]];
                 
