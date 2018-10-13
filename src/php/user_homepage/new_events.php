@@ -1,7 +1,11 @@
 <html>
-<link rel="stylesheet" type="text/css" href="../../css/room_blocks.css">
+    <head>
+        <link rel="stylesheet" type="text/css" href="../../css/room_blocks.css">
+    </head>
     <form name=form_block action="" method="post" id="form_block">
-        
+
+        <div id="snackbar"></div>  <!--Div is necessary for snackbar.-->
+
         <input type=radio name="block" id=classroom value=classroom><label for=classroom>classroom</label>
         <input type=radio name="block" id=lab value=lab><label for=lab>lab</label>
         <input type=radio name="block" id=others value=others><label for=others>others</label><br>
@@ -36,6 +40,17 @@
 
 				function date_time() {
 					chosen_date = document.getElementById('date_picker').value;
+					
+					if(chosen_date == ''){
+					    show_snackbar('Please select a date first.');
+					    
+					    //removing all blocks recursively.
+					    container = document.getElementById(\"month_view\");
+				        while (container.firstChild) {
+				            container.removeChild(container.firstChild);
+				        }
+					}
+					
 				    var today = new Date();
 					var dd = today.getDate();
 					var mm = today.getMonth()+1; //January is 0!
@@ -44,17 +59,14 @@
 					if(dd<10) {
 					    dd = '0'+dd
 					} 
-
 					if(mm<10) {
 					    mm = '0'+mm
 					} 
-
 					today = yyyy + '-' + mm + '-' + dd ;
 
 				if( new Date(chosen_date).getTime() >= new Date(today).getTime() )
 				{
 					if(document.getElementById('classroom').checked){
-						alert('classroom');
 						inflate_blocks('classroom');
 					}
 					if(document.getElementById('lab').checked){
@@ -63,9 +75,9 @@
 					if(document.getElementById('others').checked){
 						inflate_blocks('others');
 					}
-					return inflate_blocks()
-				} else{
-					alert('Date should be greater than or equal to current Date.');
+				}   else{
+				    if(chosen_date != '')
+					    show_snackbar('Date should be greater than or equal to current Date.');
 				}
 
 				}
@@ -79,7 +91,11 @@
 				    }
 				}
 
-	        	
+	        	function altr(event) {
+	        	    if(event == \"[object MouseEvent]\"){
+	        	        alert('adkugu');
+	        	    }
+	        	}
 	        	function inflate_blocks(name){
 	        		all_room_nos = {
 				        \"classroom\" : ".get_room_numbers("c").", 
@@ -91,35 +107,12 @@
 				    room_nos = all_room_nos[name];
 				    block_length = 4;
 				    
-				    //removing all previous children
-				    /*while (div_ele.firstChild) {
-				        div_ele.removeChild(div_ele.firstChild);
-				    }
-				    for(index in room_nos){
-				        //Create an button dynamically.   
-				        var element = document.createElement(\"input\");
-				        //Assign different attributes to the element. 
-				        element.type = \"button\";
-				        element.value = room_nos[index];
-				        element.name = room_nos[index];
-				        element.onclick = function() {
-				        	//document.getElementById(\"hide\").value = this.value;
-				        	//document.getElementById(\"submit\").click();
-				        };
-
-				        //Append the element in page (in div).
-				        div_ele.appendChild(element);
-				    }
-				    
-				    */
-				    
-				    breakpoints = [3, 7, 14, 21, 28];
+				    breakpoints = [1, 3, 6, 10, 15];
 				    container = document.getElementById(\"month_view\");
 
 				    while (container.firstChild) {
 				        container.removeChild(container.firstChild);
 				    }
-				    
 				    for(i = 0; i<room_nos.length; i++){
 				        for(index in breakpoints){
 				            if(i == breakpoints[index]){
@@ -134,14 +127,10 @@
 				        blobi.innerHTML = day;
 				        blobi.id = \"blob\"+i;
 				        blobi.className = \"single_block\";
+				        blobi.style.cursor = 'pointer';
 				        container.appendChild(blobi);
+				        document.getElementById('blob'+i).onclick = altr;
 				    }
-				    
-				    
-				    
-				    
-				    
-				    
 				}
 
 
@@ -151,8 +140,11 @@
 				    	if(radios[radio] == \"[object HTMLInputElement]\")
 				    	{
 				    		radios[radio].onclick = function() {
-				    			if(document.getElementById('date_picker').value != \"\")
-				            	return inflate_blocks(this.value);
+				    			if(document.getElementById('date_picker').value != \"\"){
+				    			    return inflate_blocks(this.value);
+				            	} else{
+				    		        show_snackbar('Select a date first.');
+				            	}
 				        	}
 				    	}
 				    }
@@ -169,15 +161,13 @@
 				    //get array of radio button / radio group.
 				    var radios = document.getElementsByName(radio_name);
 				    
-				    //set first radio button checked by default.
-				    alert(document.getElementById('hide2').value );
-				        if(document.getElementById('hide2').value != ''){
-                            radios[0].checked = \"checked\";
-                            inflate_blocks(radios[0].value);
-				        }
+                    //set first radio button checked by default.
+                    if(document.getElementById('hide2').value != ''){
+                        radios[0].checked = \"checked\";
+                        inflate_blocks(radios[0].value);
+                    }
 				}
 				load_default(\"block\");
-				number_of_days = 31;
         	</script>
         ";
     ?>
