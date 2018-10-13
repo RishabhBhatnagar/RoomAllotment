@@ -1,48 +1,41 @@
-
 <html>
-<?php
-    include "../data/get_data.php";
-    session_start();
-    $uname = $_REQUEST["username"];
-    $pswd = trim($_REQUEST["password"]);
-    $hashed = hash('sha512', $pswd);
-    $user_data = get_table_data_query("select * from user where comm_name = '$uname' and pswd = '$hashed'; ");
+    <?php
+        include "../data/get_data.php";
+        session_start();
+        $uname = $_REQUEST["username"];
+        $pswd = trim($_REQUEST["password"]);
+        $hashed = hash('sha512', $pswd);
+        $user_data = get_table_data_query("select * from user where comm_name = '$uname' and pswd = '$hashed'; ");
 
-    function toast($stri){
-        echo "<script>
-            alert('$stri');
-            </script>";
+        if(!$user_data){
+            //no such user exists.
+            echo "
+                <script>
+                    alert('not found');
+                    
+                    // go back one page to login form.
+                    window.history.back();
+                </script>
+                ";
+        }
+        else{
+            //user is found.
 
-    }
+            /*
+                when user is found, set session variable to send id of the user
+                didn't use username and password for security reasons.
+            */
 
-    $_SESSION["id"] = $user_data[0]["uid"];
+            $_SESSION["uid"] = $user_data[0]["uid"];
 
-    echo "
-        <input type=\"hidden\" name=\"username\" value=\"".$_REQUEST["username"]."\">
-        <input type=\"hidden\" name=\"password\" value=\"".$_REQUEST["password"]."\">
-        <input type=\"hidden\" name=\"id\" value=\"".$user_data[0]["uid "]."\">
-    ";
-
-    if(!$user_data){
-        echo "
-                        <script>
-                            alert('not found');
-                            window.history.back();
-                        </script>
-                        ";
-    }
-    else{
-        echo "				
-                            <form action=\"user_homepage/user_homepage.php\" method=\"post\">
-                                <input type=\"hidden\" name=\"who\" value=".$user_data[0]['type_of_user'].">
-                                <input type=submit id=tp>
-                            </form>
-                        ";
-        echo "				
-                            <script type=\"text/javascript\">
-                                document.getElementById(\"tp\").click();
-                            </script>
-                        ";
-    }
-?>
+            echo "				
+                <form action=\"user_homepage/user_homepage.php\" method=\"post\">
+                
+                    <!-- Temporary submit type to load user_homepage -->
+                    <input type=submit id=tp>
+                </form>
+                <script>document.getElementById(\"tp\").click();</script>
+            ";
+        }
+    ?>
 </html>

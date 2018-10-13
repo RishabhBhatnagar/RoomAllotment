@@ -1,92 +1,22 @@
-<html lang="en">
+<html>
 <head>
     <link rel="stylesheet" media="screen" href="../css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    
-    <body>
-        <style>
-
-            h1{
-                color: white;
-                text-align: center;
-                font-family: "Times New Roman", Times, serif;
-                font-size: 30px;
-                margin-top:3%;
-                }
-            h2{
-                color: white;
-                text-align: left;
-                font-family: "Times New Roman", Times, serif;
-                font-size: 20px;
-                margin-left: 20%;
-                margin-top: 8%;
-                }
-            p{
-                color: white;
-                text-align:left;
-                font-family: "Times New Roman", Times, serif;
-                font-size: 15px;
-                width:40%;
-                margin-left: 5%;
-                }
-            font{
-                color: white;
-                font-family: "Times New Roman", Times, serif;
-                font-size: 15px;
-                }
-            input{
-                color: black;
-                padding: 10px;
-                font-family: "Times New Roman", Times, serif;
-                font-size: 15px;
-                }
-            button{
-                color: white;
-                padding: 10px;
-                font-family: "Times New Roman", Times, serif;
-                font-size: 15px;
-                background-color: #282828;
-                opacity: 0.9;
-                }
-            .right {
-                float: right;
-                margin-top: 8%;
-                height: 60%;
-                width: 35%;
-                }
-            #btmlayer{
-                position: absolute;
-                z-index:1;
-                width: 100%;
-                height: 100%;
-                }
-            #toplayer{
-                position: absolute;
-                z-index:2;
-                width: 100%;
-                height: 100%;
-                }
-            .input-group {
-                display: flex;
-            }
-            .icon {
-                padding: 10px;
-                background: white;
-                color: #282828;
-                text-align: center;
-                }
-            .btn-primary:hover {
-                opacity: 1;
-                }
-
-        </style>
-        <div id="particles-js">
-            <div id="toplayer">
-            <div id="container">
+<body>
+<?php
+    session_start();
+    echo "
+        function set_guest(){
+            ".$_SESSION["guest"] = true."
+            return true;
+        }
+    "
+?>
+<div id="particles-js">
+    <div id="toplayer">
+        <div id="container">
             <h1>ROOM  ALLOTMENT</h1>
         </div>
         <hr color="white">
@@ -107,11 +37,18 @@
                     <input id="password" type="password" id="password" class="form-control" name="password" placeholder="Password">
                 </div>
                 <br>
+
+                <!-->
+                    Submitting the form will send a post request to registration page which
+                    will validate user from dataBase by checking username and hashed password
+                    if the user is not validated, control comes back to this page.
+                <!-->
                 <button type="submit" class="btn-primary">Submit</button>
                 <br>
                 <font>
                     <br>
-                    If you are not a registered user, <a href="user_homepage/user_homepage.php?who=g"><font><u>Click here.</u></font></a>
+                    <!--guest is sent with a get request directly to homepage.-->
+                    Guest login, <a href="user_homepage/user_homepage.php" onclick="function set_guest()"><font><u>Click here.</u></font></a>
                 </font>
             </form>
         </div>
@@ -131,5 +68,7 @@
                 console.log('particles.json loaded...');
             });
         </script>
-    </body>
+    </div>
+</div>
+</body>
 </html>

@@ -12,19 +12,10 @@
 <body>
 
 	<?php
-
-    function toast($stri){
-
-        echo "<script>
-                        alert('$stri');
-                        </script>";
-
-    }
-
+        include '../../data/get_data.php';
         session_start();
 		$id = $_SESSION["id"];
 		toast($id);
-		include '../data/get_data.php';
 		$eventDetails=get_table_data_query("
 			select u.comm_name, e.title, b.event_date, e.description, e.room_no, b.start_time, b.end_time, e.tags, e.type, b.booking_time, u.fac_head  
 			from event_details e,booking_detail b, user u 
@@ -51,8 +42,7 @@
 
 	<?php 
 		if (count($eventDetails) > 0){
-			echo "
-			<form action=\"update.php\" method=post>
+			echo " method=post>
 			    <table >";
 			foreach ($eventDetails as $key => $value) {
 				echo "

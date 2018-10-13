@@ -35,7 +35,13 @@
             .... do not forget a dollar sign before room_table.
     "
     ;
-    
+
+    function toast($stri){
+        echo "<script>
+                alert('$stri');
+                </script>";
+
+    }
     function get_table_data_query($query){
         return json_decode(get_json_data($query), true);
     }

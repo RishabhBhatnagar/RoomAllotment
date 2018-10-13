@@ -41,7 +41,7 @@
 				return 
 				sprintf(
 					"<td>
-						<form action=\"..\..\php\admin_event_details.php?\" method=\"post\">
+						<form action=\"admin_event_details.php\" method=\"post\">
 							<div class=indvCards>
 								Name Of Commitee: <h3> %s </h3>
 								Name of Event: <h3> %s </h3>
@@ -57,6 +57,4 @@
 					$commName,$eventName,$roomNo,$startDate
 			    );
 			}//getCards
-
-    
 ?>
