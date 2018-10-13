@@ -1,23 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Lobster');
 
-
 /* Style the header with a grey background and some padding */
 .header {
   overflow: hidden;
   background-color: #292c2f ;
   border-radius: 5px;
-  font-family: 'Lobster', cursive;
 }
 
 /* Style the header links */
 .header a {
-  	
   float: left;
   color: #ffffff;
   text-align: center;
   padding: 10px;
-  text-decoration: none;
-  font-size: 14px; 
+  font-size: 14px;
   line-height: 14px;
   border-radius: 5px;
   font-family: 'Lobster', cursive;
@@ -25,8 +21,7 @@
 
 /* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
 .header a.logo {
-  font-size: 25px;
-
+  font-size: 20px;
 }
 
 .span-text{
@@ -52,5 +47,3 @@
 .header-right {
   float: right;
 }
-
-
