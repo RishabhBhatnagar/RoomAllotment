@@ -1,7 +1,13 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="../../css/room_blocks.css">
+        <script src="../../js/new_events.js"></script>
     </head>
+
+    <?php
+        include "../../data/get_data.php";
+        session_start();
+    ?>
     <form name=form_block action="" method="post" id="form_block">
 
         <div id="snackbar"></div>  <!--Div is necessary for snackbar.-->
@@ -10,15 +16,58 @@
         <input type=radio name="block" id=lab value=lab><label for=lab>lab</label>
         <input type=radio name="block" id=others value=others><label for=others>others</label><br>
         <input type=date id="date_picker" name=date_picker" onchange = "date_time()">
-        <div id=list_blocks style="margin:20"></div>
-        <div id=month_view style="margin-top:50"></div>
+        <div id=list_blocks></div>
+        <div id=month_view></div>
         <input name="submit" type="submit" id="submit" style="display:none"/>
     </form>
 
-    <?php
-        include "../../data/get_data.php";
-        session_start();
+    <div>
+        <form name="new_event" action="new_events_2.php" id="new_event" onsubmit="return validate_form()" method="post" style="display: none">
+            <fieldset>
+                <legend>New Event</legend>
+                <table>
+                    <tr>
+                        <th>Title</th>
+                        <td><input type="text" name="ne_title"></td>
+                    </tr>
+                    <tr>
+                        <th>Tags</th>
+                        <td><input type="text" name="ne_tags"></td>
+                    </tr>
+                    <tr>
+                        <th>Type</th>
+                        <td><input type="text" name="ne_type"></td>
+                    </tr>
+                    <tr>
+                        <th>Room No</th>
+                        <td><input type="text" name="ne_room_no"></td>
+                    </tr>
 
+                    <tr>
+                        <th>Description</th>
+                        <td><textarea noresize></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Committee ID
+                        </th>
+                        <td>
+                            <center>
+                                <label>
+                                    <?php echo $_SESSION["uid"]; ?>
+                                </label>
+                            </center>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="submit"></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+    </div>
+
+    <?php
         function get_list($arr){
         	return sprintf("[%s]", implode(",", $arr));
         }
@@ -93,7 +142,7 @@
 
 	        	function altr(event) {
 	        	    if(event == \"[object MouseEvent]\"){
-	        	        alert('adkugu');
+	        	        document.getElementById('new_event').style.display = 'block';
 	        	    }
 	        	}
 	        	function inflate_blocks(name){
