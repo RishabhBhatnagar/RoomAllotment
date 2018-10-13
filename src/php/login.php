@@ -4,10 +4,89 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body>
-<div id="particles-js">
-    <div id="toplayer">
-        <div id="container">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    
+    <body>
+        <style>
+
+            h1{
+                color: white;
+                text-align: center;
+                font-family: "Times New Roman", Times, serif;
+                font-size: 30px;
+                margin-top:3%;
+                }
+            h2{
+                color: white;
+                text-align: left;
+                font-family: "Times New Roman", Times, serif;
+                font-size: 20px;
+                margin-left: 20%;
+                margin-top: 8%;
+                }
+            p{
+                color: white;
+                text-align:left;
+                font-family: "Times New Roman", Times, serif;
+                font-size: 15px;
+                width:40%;
+                margin-left: 5%;
+                }
+            font{
+                color: white;
+                font-family: "Times New Roman", Times, serif;
+                font-size: 15px;
+                }
+            input{
+                color: black;
+                padding: 10px;
+                font-family: "Times New Roman", Times, serif;
+                font-size: 15px;
+                }
+            button{
+                color: white;
+                padding: 10px;
+                font-family: "Times New Roman", Times, serif;
+                font-size: 15px;
+                background-color: #282828;
+                opacity: 0.9;
+                }
+            .right {
+                float: right;
+                margin-top: 8%;
+                height: 60%;
+                width: 35%;
+                }
+            #btmlayer{
+                position: absolute;
+                z-index:1;
+                width: 100%;
+                height: 100%;
+                }
+            #toplayer{
+                position: absolute;
+                z-index:2;
+                width: 100%;
+                height: 100%;
+                }
+            .input-group {
+                display: flex;
+            }
+            .icon {
+                padding: 10px;
+                background: white;
+                color: #282828;
+                text-align: center;
+                }
+            .btn-primary:hover {
+                opacity: 1;
+                }
+
+        </style>
+        <div id="particles-js">
+            <div id="toplayer">
+            <div id="container">
             <h1>ROOM  ALLOTMENT</h1>
         </div>
         <hr color="white">
@@ -52,7 +131,5 @@
                 console.log('particles.json loaded...');
             });
         </script>
-    </div>
-</div>
-</body>
+    </body>
 </html>
