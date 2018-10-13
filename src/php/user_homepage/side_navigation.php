@@ -20,11 +20,11 @@
         with display none for all in (user, admin, guest).
     -->
     <div>
-        <a href = "previous_events.php" target="main_frame"  id = "previous_events"  style="display:none">Previous Events</a><br>
-        <a href = "pending_events.php"  target="main_frame"  id = "pending_events"   style="display:none">Pending Events </a><br>
-        <a href = "new_events.php"      target="main_frame"  id = "new_events"       style="display:none">New Events     </a><br>
-        <a href = "rejected.php"        target="main_frame"  id = "rejected_events"  style="display:none">Rejected Events</a><br>
-        <a href = "acepted.php"         target="main_frame"  id = "accepted_events"  style="display:none">Accepted Events</a><br>
+        <a href = "previous_events.php" target="main_frame"  id = "previous_events"  style="display:none; background-color: #00e676">Previous Events</a><br>
+        <a href = "pending_events.php"  target="main_frame"  id = "pending_events"   style="display:none; background-color: #00e676">Pending Events </a><br>
+        <a href = "new_events.php"      target="main_frame"  id = "new_events"       style="display:none; background-color: #00e676">New Events     </a><br>
+        <a href = "rejected.php"        target="main_frame"  id = "rejected_events"  style="display:none; background-color: #00e676">Rejected Events</a><br>
+        <a href = "acepted.php"         target="main_frame"  id = "accepted_events"  style="display:none; background-color: #00e676">Accepted Events</a><br>
 
         <?php
             //display all the committee radio button dynamically.
