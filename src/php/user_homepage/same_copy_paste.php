@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="stylesheet" type="text/css" href="../css/admin_page.css">
-</head>
-<body>
-	<center>
-		<?php 
-			include '../data/get_data.php';
-
+<?php
 			function dynamicQuery($query,$noOfCards_perLine=3)
 			{
 				$cards=array();
@@ -58,6 +49,7 @@
 								Event Start Date: <h3> %s </h3>
 								<input type=\"submit\" value=\"Know more..\" >
 								<input type=hidden name=event_id value=".$eventId.">
+								<input type=hidden name=no_access value=no_access>
 					    	</div> 
 						</form>
 						
@@ -65,22 +57,4 @@
 					$commName,$eventName,$roomNo,$startDate
 			    );
 			}//getCards
-
-			//calling the query!!!
-			dynamicQuery("select * from event_details e,booking_detail b, user u where e.eid=b.eid and e.uid=u.uid;");
-
-		
-		?>
-		
-
-		
-
-	
-
-
-		
-	</center>
-	
-</body>
-
-</html>
+?>

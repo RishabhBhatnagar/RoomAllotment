@@ -1,48 +1,22 @@
 <html>
-<<<<<<< HEAD
-=======
-<!--http://jqueryui.com/datepicker/-->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#datepicker" ).
-        datepicker({
-       		onSelect: function(dateText, inst) {         //https://stackoverflow.com/questions/27506111/jquery-datepicker-change-event-trigger-and-inputs-default-change-event
-            	//dateText;
-        	}
-    	});
-  } );
-  </script>
-
->>>>>>> 5e515597f8ff52da214af1d11a1fdc0d1577f427
-
-<script type="text/javascript" src = "../data/get_data.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/room_blocks.css">
+<link rel="stylesheet" type="text/css" href="../../css/room_blocks.css">
     <form name=form_block action="" method="post" id="form_block">
-<<<<<<< HEAD
-        
+<<<<<<< 605a5173f856a232db68ad5bd500879a48a75c3a
+
 =======
-        <input type="text" id="datepicker" name="datepicker" readonly placeholder = "Enter the date"></p>
->>>>>>> 5e515597f8ff52da214af1d11a1fdc0d1577f427
+        
+>>>>>>> change layout of new events.php
         <input type=radio name="block" id=classroom value=classroom><label for=classroom>classroom</label>
         <input type=radio name="block" id=lab value=lab><label for=lab>lab</label>
         <input type=radio name="block" id=others value=others><label for=others>others</label><br>
-        <input type=date placeholder="Enter the date.">
+        <input type=date id="date_picker" name=date_picker" onchange = "date_time()">
         <div id=list_blocks style="margin:20"></div>
         <div id=month_view style="margin-top:50"></div>
         <input name="submit" type="submit" id="submit" style="display:none"/>
-<<<<<<< HEAD
-        
-=======
->>>>>>> 5e515597f8ff52da214af1d11a1fdc0d1577f427
-        <input type="hidden" id="hide" name="hide">
     </form>
 
     <?php
-        include "../data/get_data.php";
+        include "../../data/get_data.php";
         session_start();
 
         function get_list($arr){
@@ -58,14 +32,15 @@
         	}
         	return get_list($room_numbers);
         }
-
         echo "
         	<script>
-
 			    classroom = [];
 				lab = [];
 				others = [];
 
+				function date_time() {
+				    alert('date changed');
+				}
 				function seggregate_data(obj){
 				    for(i = 0; i<obj.length; i++){
 				        switch(obj[i][\"room_type\"]){
@@ -79,17 +54,17 @@
 	        	
 	        	function inflate_blocks(name){
 	        		all_room_nos = {
-				        \"classroom\" : ".get_room_numbers("classroom").", 
-				        \"lab\"       : ".get_room_numbers("lab").",
-				        \"others\"    : ".get_room_numbers("others").",
+				        \"classroom\" : ".get_room_numbers("c").", 
+				        \"lab\"       : ".get_room_numbers("l").",
+				        \"others\"    : ".get_room_numbers("o").",
 				    };
-
+	        		
 				    div_ele = document.getElementById(\"list_blocks\");
-
-				    room_nos = all_room_nos[name];   
-
+				    room_nos = all_room_nos[name];
+				    block_length = 4;
+				    
 				    //removing all previous children
-				    while (div_ele.firstChild) {
+				    /*while (div_ele.firstChild) {
 				        div_ele.removeChild(div_ele.firstChild);
 				    }
 				    for(index in room_nos){
@@ -100,31 +75,24 @@
 				        element.value = room_nos[index];
 				        element.name = room_nos[index];
 				        element.onclick = function() {
-				        	document.getElementById(\"hide\").value = this.value;
-				        	document.getElementById(\"submit\").click();
-<<<<<<< HEAD
-=======
-
->>>>>>> 5e515597f8ff52da214af1d11a1fdc0d1577f427
+				        	//document.getElementById(\"hide\").value = this.value;
+				        	//document.getElementById(\"submit\").click();
 				        };
 
 				        //Append the element in page (in div).
 				        div_ele.appendChild(element);
 				    }
-				}
-
-
-				function add_blobs(number_of_days, room_number){
-				    breakpoints = [7, 14, 21, 28];
-				    date_picker = document.getElementById(\"datepicker\");
 				    
+				    */
+				    
+				    breakpoints = [3, 7, 14, 21, 28];
 				    container = document.getElementById(\"month_view\");
 
 				    while (container.firstChild) {
 				        container.removeChild(container.firstChild);
 				    }
 				    
-				    for(i = 0; i<number_of_days; i++){
+				    for(i = 0; i<room_nos.length; i++){
 				        for(index in breakpoints){
 				            if(i == breakpoints[index]){
 				                break_div = document.createElement(\"p\");
@@ -132,15 +100,27 @@
 				                container.append(break_div);
 				            }
 				        }
-				        day = i;
-				        if(day <10){day = \"0\"+day;}
+				        day = room_nos[i];
+				        if(day.length < block_length){day = \" \"+day;}
 				        blobi = document.createElement(\"span\");
 				        blobi.innerHTML = day;
 				        blobi.id = \"blob\"+i;
 				        blobi.className = \"single_block\";
 				        container.appendChild(blobi);
 				    }
+				    
+				    
+				    
+				    
+				    
+				    
 				}
+
+<<<<<<< 605a5173f856a232db68ad5bd500879a48a75c3a
+=======
+				function add_blobs(number_of_days, room_number, room_nos){
+				}
+>>>>>>> change layout of new events.php
 
 				function bind_radio_listener(name){
 		        	var radios = document.getElementsByName(\"block\");
@@ -166,63 +146,15 @@
 				    var radios = document.getElementsByName(radio_name);
 				    
 				    //set first radio button checked by default.
-				    radios[0].checked = \"checked\";
-				    inflate_blocks(radios[0].value);
+				    alert(document.getElementById('hide2').value );
+				        if(document.getElementById('hide2').value != ''){
+                            radios[0].checked = \"checked\";
+                            inflate_blocks(radios[0].value);
+				        }
 				}
 				load_default(\"block\");
 				number_of_days = 31;
         	</script>
         ";
-
-<<<<<<< HEAD
-        if(isset($_POST["submit"]) and $_POST["hide"] != "null"){
-        	
-=======
-
-
-
-        if(isset($_POST["submit"]) and $_POST["hide"] != "null"){
-        	/*echo $_POST["hide"];
-        	echo $_POST["datepicker"];*/
-        	$_SESSION["datepicker"] = $_POST["datepicker"];
-        	$_SESSION["variables_set"] = true;
-
->>>>>>> 5e515597f8ff52da214af1d11a1fdc0d1577f427
-        	print_r(
-	        	get_table_data_query("
-		        	SELECT MONTH(end_date)
-		        	FROM event_details
-<<<<<<< HEAD
-		        	WHERE start_date = str_to_date('"."10/04/2018"."', '%m/%d/%Y')
-=======
-		        	WHERE start_date = str_to_date('".$_POST["datepicker"]."', '%m/%d/%Y')
->>>>>>> 5e515597f8ff52da214af1d11a1fdc0d1577f427
-		        		and is_completed = false
-		        		and is_accepted;"
-		        )
-	        );
-        	echo "
-        	    <script>
-        	        hidden_tag = document.getElementById(\"hide\");
-        	        add_blobs(23, 404);
-        	        hidden_tag.value = \"null\";
-        	    </script>
-        	";
-        }
-        if(isset($_POST["submit"])){
-<<<<<<< HEAD
-        	    
-=======
-        	echo "<br><br><br><br><br>s<br>".$_POST["datepicker"]."<br>s<br><br><br><br>";
-        	if($_SESSION["variables_set"]){
-	        	echo "
-	        	    <script>
-	        	        document.getElementById(\"datepicker\").value = ".$_SESSION["datepicker"]."
-	        		</script> 
-	        	";	
-        	}
->>>>>>> 5e515597f8ff52da214af1d11a1fdc0d1577f427
-        	
-        }
     ?>
 </html>
