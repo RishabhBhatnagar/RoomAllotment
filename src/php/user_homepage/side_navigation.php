@@ -58,8 +58,14 @@
 
         if(isset($_SESSION["uid"])){
 
-            $user_data = get_table_data_query("SELECT * FROM user WHERE uid=".$_SESSION["uid"])[0];
-            $who = $user_data["type_of_user"];
+            if(isset($_SESSION["guest"])){ $is_guest = true;}
+            else {$is_guest = false;}
+            if(!$is_guest) {
+                $user_data = get_table_data_query("SELECT * FROM user WHERE uid=".$_SESSION["uid"])[0];
+                $who = $user_data["type_of_user"];
+            } else{
+                $who = 'g';
+            }
 
                 if(in_array($who, array("a", "u"))){
                     echo "<script>document.getElementById(\"pending_events\").click();</script>";
@@ -93,7 +99,6 @@
                     }
                 }
         }
-
     ?>
 </body>
 <html>

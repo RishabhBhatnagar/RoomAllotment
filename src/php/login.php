@@ -7,13 +7,9 @@
 <body>
 <?php
     session_start();
-    echo "
-        function set_guest(){
-            ".$_SESSION["guest"] = true."
-            return true;
-        }
-    "
+    session_unset();    // for disabling direct traversal to any page when user/admin forgot to logout.
 ?>
+<a method = get href = "set_guest.php" id="for_guest">kdjbvlzdkv</a>
 <div id="particles-js">
     <div id="toplayer">
         <div id="container">
@@ -45,12 +41,12 @@
                 <!-->
                 <button type="submit" class="btn-primary">Submit</button>
                 <br>
-                <font>
-                    <br>
-                    <!--guest is sent with a get request directly to homepage.-->
-                    Guest login, <a href="user_homepage/user_homepage.php" onclick="function set_guest()"><font><u>Click here.</u></font></a>
-                </font>
             </form>
+            <font>
+                <br>
+                <!--guest is sent to set_guest which will set the session variable-->
+                Guest login, <a href="set_guest.php" onclick="set_guest()"><font><u>Click here.</u></font></a>
+            </font>
         </div>
         <h2>Welcome</h2>
         <br>

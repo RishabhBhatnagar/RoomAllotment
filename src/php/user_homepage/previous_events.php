@@ -1,9 +1,10 @@
+<link rel="stylesheet" type="text/css" href="../../css/admin_page.css">
 <?php
     require "../../data/get_data.php";
     require "same_copy_paste.php";
     session_start();
 
-    if(isset($_SESSION["id"])){
+    if(isset($_SESSION["uid"])){
         dynamicQuery("
                 select * 
                 from event_details e,booking_detail b, user u 

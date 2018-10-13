@@ -14,10 +14,9 @@
 	<?php
         include '../../data/get_data.php';
         session_start();
-		$id = $_SESSION["id"];
-		toast($id);
+		$id = $_POST["event_id"];
 		$eventDetails=get_table_data_query("
-			select u.comm_name, e.title, b.event_date, e.description, e.room_no, b.start_time, b.end_time, e.tags, e.type, b.booking_time, u.fac_head  
+			select u.comm_name, e.title, b.event_date, e.description, e.room_no, b.start_time, b.end_time, e.tags, e.type, b.booking_time, u.fac_head, status  
 			from event_details e,booking_detail b, user u 
 			    where e.eid=b.eid and e.uid=u.uid and e.eid=".$_REQUEST["event_id"].";"
 		)[0];
@@ -42,7 +41,7 @@
 
 	<?php 
 		if (count($eventDetails) > 0){
-			echo " method=post>
+			echo "<form action='../update.php' method=post>
 			    <table >";
 			foreach ($eventDetails as $key => $value) {
 				echo "
@@ -55,8 +54,8 @@
 			        get_table_data_query(
 			                "select type_of_user 
                                    from user 
-                                   where uid = ".$_SESSION["id"].";"
-                    ) == 'a'
+                                   where uid = ".$_SESSION["uid"].";"
+                    )[0]["type_of_user"] == 'a'
             ){
 			echo 
 			"<tr> 
