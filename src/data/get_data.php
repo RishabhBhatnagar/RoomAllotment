@@ -1,7 +1,13 @@
-
+<html>
+    <head>
+        <script src="../js/snackbar.js"></script>
+        <script src="../../js/snackbar.js"></script>
+        <script src="../../../js/snackbar.js"></script>
+    </head>
+</html>
 <?php
     include 'get_tables.php';    //Everytime when this file is called, data is refreshed frrom tables
-    
+
     function get_table_data($table_name){
         global $json_dict;
         $table_json = $json_dict[$table_name];      //$json_dict is table from get_tables file;
@@ -49,5 +55,14 @@
     // for javascript.
     if(isset($_GET['query'])){
         get_table_data_query($_GET['query']);
+    }
+
+
+    function show_snackbar($message){
+        echo "
+            <script>
+                show_snackbar('".$message."');
+            </script>
+        ";
     }
 ?>
