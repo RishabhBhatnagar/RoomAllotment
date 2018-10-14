@@ -19,3 +19,7 @@
 ## New events
 ![image](https://user-images.githubusercontent.com/43790534/46714636-2a25d900-cc7a-11e8-8570-25da697a4fa5.png)
 
+##Blocked unauthenticated access :
+![image](https://user-images.githubusercontent.com/20074475/46914697-76e11b00-cfbe-11e8-827c-4c27e5a4795e.png)
+
+
