@@ -42,7 +42,7 @@
 
                     <tr>
                         <th>Event Date:</th>
-                        <td><label name="ne_date">< </label></td>
+                        <td><label name="ne_date">  </label></td> <!-- Date is to be echoed inside the label -->
                     </tr>
 
                     <tr>
@@ -52,7 +52,7 @@
 
                     <tr>
                         <th>Room No</th>
-                        <td><label name="ne_date"> </label></td>
+                        <td><label name="ne_date"> </label></td> <!-- Room no prev clicked,is to be echoed inside the label -->
                     </tr>
 
                     <tr>
