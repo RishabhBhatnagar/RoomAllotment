@@ -7,6 +7,10 @@
     <?php
         include "../../data/get_data.php";
         session_start();
+        $query = get_table_data_query("select * from user where uid =" .$_SESSION["uid"].";")[0];
+        $commName=$query['comm_name'];
+        $facHead=$query['fac_head'];
+       
     ?>
     <form name=form_block action="" method="post" id="form_block">
 
@@ -27,40 +31,72 @@
                 <legend>New Event</legend>
                 <table>
                     <tr>
-                        <th>Title</th>
-                        <td><input type="text" name="ne_title"></td>
+                        <th>Committee Name:</th>
+                        <td><label name="ne_comm_name"> <?php echo "$commName";?> </label></td>
                     </tr>
+
                     <tr>
-                        <th>Tags</th>
-                        <td><input type="text" name="ne_tags"></td>
+                        <th>Event Title:</th>
+                        <td><input type="text" name="ne_title" required></td>
                     </tr>
+
                     <tr>
-                        <th>Type</th>
-                        <td><input type="text" name="ne_type"></td>
-                    </tr>
-                    <tr>
-                        <th>Room No</th>
-                        <td><input type="text" name="ne_room_no"></td>
+                        <th>Event Date:</th>
+                        <td><label name="ne_date">< </label></td>
                     </tr>
 
                     <tr>
                         <th>Description</th>
-                        <td><textarea noresize></textarea></td>
+                        <td><textarea name="ne_desc" noresize required></textarea></td>
                     </tr>
+
                     <tr>
-                        <th>
-                            Committee ID
-                        </th>
+                        <th>Room No</th>
+                        <td><label name="ne_date"> </label></td>
+                    </tr>
+
+                    <tr>
+                        <th>Start Time:</th>
+                        <td><input type="time" name="ne_start_time" required></td>
+                    </tr>
+
+                    <tr>
+                        <th>End Time:</th>
+                        <td><input type="time" name="ne_end_time" required></td>
+                    </tr>
+
+                    <tr>
+                        <th>Tags:</th>
                         <td>
-                            <center>
-                                <label>
-                                    <?php echo $_SESSION["uid"]; ?>
-                                </label>
-                            </center>
+                        	<input type="radio" name="ne_tags" value="MOSSAIC" required>MOSSAIC
+                        	<input type="radio" name="ne_tags" value="IRIS" required>IRIS
+                        	<input type="radio" name="ne_tags" value="NONE" required>NONE
                         </td>
                     </tr>
+
                     <tr>
-                        <td><input type="submit" value="submit"></td>
+                        <th>Type</th>
+                        <td>
+                        	<input type="radio" name="ne_type" value="EVENT" required>EVENT
+                        	<input type="radio" name="ne_type" value="SEMINAR" required>SEMINAR
+                        	<input type="radio" name="ne_type" value="WORKSHOP" required>WORKSHOP
+                        	<input type="radio" name="ne_type" value="MEETING" required>MEETING
+                        	<input type="radio" name="ne_type" value="OTHER" required>OTHER
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Faculty Incharge:</th>
+                        <td> <label name="ne_date"> <?php echo "$facHead"; ?> </label> </td>
+                    </tr>
+
+                    <!-- <tr>
+                        <th>Committee ID</th>
+                        <td><?php echo $_SESSION["uid"]; ?></td>
+                    </tr> -->
+
+                    <tr>
+                        <td colspan="2" style="align-self: center;"><input type="submit" value="submit"></td>
                     </tr>
                 </table>
             </fieldset>
