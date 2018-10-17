@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="../../css/room_blocks.css">
+        <link rel="stylesheet" type="text/css" href="../../css/new_events.css">
         <script src="../../js/new_events.js"></script>
     </head>
 
@@ -15,7 +15,7 @@
         <input type=radio name="block" id=lab value=lab><label for=lab>lab</label>
         <input type=radio name="block" id=others value=others><label for=others>others</label><br>
         <div id=list_blocks></div>
-        <div id=month_view></div>
+        <div id=month_view class="month_view"></div>
         <input name="submit" type="submit" id="submit" style="display:none"/>
     </form>
 
@@ -173,11 +173,15 @@
                         room_nos = all_room_nos[name];
                         block_length = 4;
                         
-                        breakpoints = [1, 3, 6, 10, 15];
+                        breakpoints = [3, 6, 10, 15];
                         clear_all_fields();
+                        
+                        row_number = 0;
+                        
                         for(i = 0; i<room_nos.length; i++){
                             for(index in breakpoints){
                                 if(i == breakpoints[index]){
+                                    row_number += 1;
                                     break_div = document.createElement(\"p\");
                                     break_div.innerHTML = \"&nbsp\";
                                     container.append(break_div);
