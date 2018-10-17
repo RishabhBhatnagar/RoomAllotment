@@ -73,12 +73,44 @@
         	$table = get_table_data_query(sprintf("select * from room where room_type = '%s'", $room_type));
         	$room_numbers = array();
         	for($i = 0; $i < count($table); $i++){
-        		if($table[$i]["room_type"] == $room_type){
-        			array_push($room_numbers, sprintf("\"%s\"", $table[$i]["room_no"]));
-        		}
+        	    array_push($room_numbers, sprintf("\"%s\"", $table[$i]["room_no"]));
         	}
         	return get_list($room_numbers);
         }
+        function get_room_numbers_status($room_type){
+            //these are all the room numbers
+            $table_temp = get_table_data_query(sprintf("select * from room where room_type = '%s'", $room_type));
+            $all_room_nos = array();
+            for($i = 0; $i < count($table_temp); $i++){
+                array_push($all_room_nos, sprintf("\"%s\"", $table_temp[$i]["room_no"]));
+            }
+
+            //getting all booked room_numbers.
+            $table = get_table_data_query(
+                sprintf(
+                    "SELECT r.room_no, status
+                                    FROM room r, event_details e 
+                                    WHERE room_type = '%s' 
+                                          and r.room_no = e.room_no", $room_type
+                )
+            );
+
+            $status = array();
+            for($i = 0; $i < count($all_room_nos); $i++){
+                $set = false;
+                for($j = 0; $j < count($table); $j++){
+                    if('"'.$table[$j]["room_no"].'"' == $all_room_nos[$i]){
+                        array_push($status, '"'.$table[$j]["status"].'"');
+                        $set = true;
+                    }
+                }
+                if(!$set){
+                    array_push($status, '"u"');
+                }
+            }
+            return get_list($status);
+        }
+
         echo "
         	<script>
 			    classroom = [];
@@ -169,8 +201,16 @@
                             \"others\"    : ".get_room_numbers("o").",
                         };
                         
+                        all_room_nos_status = {
+                            \"classroom\" : ".get_room_numbers_status("c").", 
+                            \"lab\"       : ".get_room_numbers_status("l").",
+                            \"others\"    : ".get_room_numbers_status("o").",
+                        };
+                        
                         div_ele = document.getElementById(\"list_blocks\");
                         room_nos = all_room_nos[name];
+                        room_nos_status = all_room_nos_status[name];
+                        
                         block_length = 4;
                         
                         breakpoints = [3, 6, 10, 15];
@@ -188,14 +228,25 @@
                                 }
                             }
                             day = room_nos[i];
+                            status = room_nos_status[i];
+                            
                             if(day.length < block_length){day = \" \"+day;}
                             blobi = document.createElement(\"span\");
                             blobi.innerHTML = day;
                             blobi.id = \"blob\"+i;
-                            blobi.className = \"single_block\";
-                            blobi.style.cursor = 'pointer';
+                            cname = '';
+                            switch (status) {
+                                case 'a' : cname = 'single_block_a'; break;
+                                case 'u' : cname = 'single_block_u'; break;
+                                case 'p' : cname = 'single_block_p'; break;
+                                case 'r' : cname = 'single_block_r'; break;
+                            }
+                            blobi.className = cname;
                             container.appendChild(blobi);
-                            document.getElementById('blob'+i).addEventListener('click', altr , false);
+                            if(status != 'a') {
+                                blobi.style.cursor = 'pointer';
+                                document.getElementById('blob'+i).addEventListener('click', altr , false);
+                            }
                         }
                     }
 				}

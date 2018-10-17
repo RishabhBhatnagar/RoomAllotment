@@ -1,3 +1,4 @@
 function validate_form(){
-    return true;
+    alert("called new_events.js");
+    return false;
 }
