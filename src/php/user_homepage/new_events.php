@@ -9,13 +9,11 @@
         session_start();
     ?>
     <form name=form_block action="" method="post" id="form_block">
-
         <div id="snackbar"></div>  <!--Div is necessary for snackbar.-->
-
+        <input type=date id="date_picker" name=date_picker" onchange = "date_time()"><br>
         <input type=radio name="block" id=classroom value=classroom><label for=classroom>classroom</label>
         <input type=radio name="block" id=lab value=lab><label for=lab>lab</label>
         <input type=radio name="block" id=others value=others><label for=others>others</label><br>
-        <input type=date id="date_picker" name=date_picker" onchange = "date_time()">
         <div id=list_blocks></div>
         <div id=month_view></div>
         <input name="submit" type="submit" id="submit" style="display:none"/>
@@ -40,7 +38,7 @@
                     </tr>
                     <tr>
                         <th>Room No</th>
-                        <td><input type="text" name="ne_room_no"></td>
+                        <td><input type="text" name="ne_room_no" id="ne_room_no" readonly></td>
                     </tr>
 
                     <tr>
@@ -87,8 +85,32 @@
 				lab = [];
 				others = [];
 
+				
+                function remove_new_event_form(){
+                    document.getElementById('new_event').style.display = 'none';
+                }
+                
+                function clear_all_radios() {
+                    var radios = document.getElementsByName(\"block\");
+				    for(radio in radios) {
+				    	if(radios[radio] == \"[object HTMLInputElement]\")
+				    	{
+				    		radios[radio].checked = false;
+				    	}
+				    }
+                }
+                
+				function clear_all_fields(){
+				    container = document.getElementById(\"month_view\");
+                    while (container.firstChild) {
+                        container.removeChild(container.firstChild);
+                    }
+                    remove_new_event_form();
+				}
+				
 				function date_time() {
-					chosen_date = document.getElementById('date_picker').value;
+				    date_picker = document.getElementById('date_picker');
+					chosen_date = date_picker.value;
 					
 					if(chosen_date == ''){
 					    show_snackbar('Please select a date first.');
@@ -113,73 +135,65 @@
 					} 
 					today = yyyy + '-' + mm + '-' + dd ;
 
-				if( new Date(chosen_date).getTime() >= new Date(today).getTime() )
-				{
-					if(document.getElementById('classroom').checked){
-						inflate_blocks('classroom');
-					}
-					if(document.getElementById('lab').checked){
-						inflate_blocks('lab');
-					}
-					if(document.getElementById('others').checked){
-						inflate_blocks('others');
-					}
-				}   else{
-				    if(chosen_date != '')
-					    show_snackbar('Date should be greater than or equal to current Date.');
-				}
+                    if( new Date(chosen_date).getTime() >= new Date(today).getTime() )
+                    {
+                        if(document.getElementById('classroom').checked){
+                            inflate_blocks('classroom');
+                        }
+                        if(document.getElementById('lab').checked){
+                            inflate_blocks('lab');
+                        }
+                        if(document.getElementById('others').checked){
+                            inflate_blocks('others');
+                        }
+                    }   
+                    else{
+                        if(chosen_date != '')
+                            inflate_blocks('');   //passing null to remove all views and inflate nothing.
+                            show_snackbar('Date should be greater than or equal to current Date.');
+                            date_picker.value = '';  //resetting the date
+                    }
 
-				}
-				function seggregate_data(obj){
-				    for(i = 0; i<obj.length; i++){
-				        switch(obj[i][\"room_type\"]){
-				            case \"classroom\" : classroom.push(obj[i][\"room_no\"]); break;
-				            case \"lab\" : lab.push(obj[i][\"room_no\"]); break;
-				            case \"others\" : others.push(obj[i][\"room_no\"]); break;
-				        } 
-				    }
 				}
 
 	        	function altr(event) {
-	        	    if(event == \"[object MouseEvent]\"){
-	        	        document.getElementById('new_event').style.display = 'block';
-	        	    }
+                    remove_new_event_form();
+                    document.getElementById('ne_room_no').value = event.srcElement.innerHTML;
+	        	    document.getElementById('new_event').style.display = 'block';
 	        	}
 	        	function inflate_blocks(name){
-	        		all_room_nos = {
-				        \"classroom\" : ".get_room_numbers("c").", 
-				        \"lab\"       : ".get_room_numbers("l").",
-				        \"others\"    : ".get_room_numbers("o").",
-				    };
-	        		
-				    div_ele = document.getElementById(\"list_blocks\");
-				    room_nos = all_room_nos[name];
-				    block_length = 4;
-				    
-				    breakpoints = [1, 3, 6, 10, 15];
-				    container = document.getElementById(\"month_view\");
-
-				    while (container.firstChild) {
-				        container.removeChild(container.firstChild);
-				    }
-				    for(i = 0; i<room_nos.length; i++){
-				        for(index in breakpoints){
-				            if(i == breakpoints[index]){
-				                break_div = document.createElement(\"p\");
-				                break_div.innerHTML = \"&nbsp\";
-				                container.append(break_div);
-				            }
-				        }
-				        day = room_nos[i];
-				        if(day.length < block_length){day = \" \"+day;}
-				        blobi = document.createElement(\"span\");
-				        blobi.innerHTML = day;
-				        blobi.id = \"blob\"+i;
-				        blobi.className = \"single_block\";
-				        blobi.style.cursor = 'pointer';
-				        container.appendChild(blobi);
-				        document.getElementById('blob'+i).onclick = altr;
-				    }
+                    if(name != ''){
+                        all_room_nos = {
+                            \"classroom\" : ".get_room_numbers("c").", 
+                            \"lab\"       : ".get_room_numbers("l").",
+                            \"others\"    : ".get_room_numbers("o").",
+                        };
+                        
+                        div_ele = document.getElementById(\"list_blocks\");
+                        room_nos = all_room_nos[name];
+                        block_length = 4;
+                        
+                        breakpoints = [1, 3, 6, 10, 15];
+                        clear_all_fields();
+                        for(i = 0; i<room_nos.length; i++){
+                            for(index in breakpoints){
+                                if(i == breakpoints[index]){
+                                    break_div = document.createElement(\"p\");
+                                    break_div.innerHTML = \"&nbsp\";
+                                    container.append(break_div);
+                                }
+                            }
+                            day = room_nos[i];
+                            if(day.length < block_length){day = \" \"+day;}
+                            blobi = document.createElement(\"span\");
+                            blobi.innerHTML = day;
+                            blobi.id = \"blob\"+i;
+                            blobi.className = \"single_block\";
+                            blobi.style.cursor = 'pointer';
+                            container.appendChild(blobi);
+                            document.getElementById('blob'+i).addEventListener('click', altr , false);
+                        }
+                    }
 				}
 
 
@@ -192,13 +206,14 @@
 				    			if(document.getElementById('date_picker').value != \"\"){
 				    			    return inflate_blocks(this.value);
 				            	} else{
+				    		        clear_all_radios();
 				    		        show_snackbar('Select a date first.');
 				            	}
 				        	}
 				    	}
 				    }
 				}
-
+				
 				function load_default(radio_name){
 				    
 				    //segregate all table room by room_type.
