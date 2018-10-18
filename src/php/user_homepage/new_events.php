@@ -7,9 +7,15 @@
     <?php
         include "../../data/get_data.php";
         session_start();
+    $query = get_table_data_query("select * from user where uid =" .$_SESSION["uid"].";")[0];
+    $commName=$query['comm_name'];
+    $facHead=$query['fac_head'];
+
     ?>
     <form name=form_block action="" method="post" id="form_block">
+
         <div id="snackbar"></div>  <!--Div is necessary for snackbar.-->
+
         <input type=date id="date_picker" name=date_picker" onchange = "date_time()"><br>
         <input type=radio name="block" id=classroom value=classroom><label for=classroom>classroom</label>
         <input type=radio name="block" id=lab value=lab><label for=lab>lab</label>
@@ -24,40 +30,57 @@
                 <legend>New Event</legend>
                 <table>
                     <tr>
-                        <th>Title</th>
+                        <th>Committee Name:</th>
+                        <td><label name="ne_comm_name"> <?php echo "$commName";?> </label></td>
+                    </tr>
+                    <tr>
+                        <th>Event Title</th>
                         <td><input type="text" name="ne_title"></td>
                     </tr>
                     <tr>
-                        <th>Tags</th>
-                        <td><input type="text" name="ne_tags"></td>
-                    </tr>
-                    <tr>
-                        <th>Type</th>
-                        <td><input type="text" name="ne_type"></td>
-                    </tr>
-                    <tr>
-                        <th>Room No</th>
-                        <td><input type="text" name="ne_room_no" id="ne_room_no" readonly></td>
+                        <th>Event Date:</th>
+                        <td><label id="ne_date"></label></td> <!-- Date is to be echoed inside the label -->
                     </tr>
                     <tr>
                         <th>Description</th>
                         <td><textarea noresize></textarea></td>
                     </tr>
                     <tr>
-                        <th>
-                            Committee ID
-                        </th>
+                        <th>Room No</th>
+                        <td><input type="text" name="ne_room_no" id="ne_room_no" readonly></td>
+                    </tr>
+                    <tr>
+                        <th>Start Time:</th>
+                        <td><input type="time" name="ne_start_time" required></td>
+                    </tr>
+                    <tr>
+                        <th>End Time:</th>
+                        <td><input type="time" name="ne_end_time" required></td>
+                    </tr>
+
+                    <tr>
+                        <th>Tags:</th>
                         <td>
-                            <center>
-                                <label>
-                                    <?php echo $_SESSION["uid"]; ?>
-                                </label>
-                            </center>
+                            <input type="radio" name="ne_tags" value="MOSSAIC" required>MOSSAIC
+                            <input type="radio" name="ne_tags" value="IRIS" required>IRIS
+                            <input type="radio" name="ne_tags" value="NONE" required>NONE
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="submit" value="submit"></td>
+                        <th>Type</th>
+                        <td>
+                            <input type="radio" name="ne_type" value="EVENT" required>EVENT
+                            <input type="radio" name="ne_type" value="SEMINAR" required>SEMINAR
+                            <input type="radio" name="ne_type" value="WORKSHOP" required>WORKSHOP
+                            <input type="radio" name="ne_type" value="MEETING" required>MEETING
+                            <input type="radio" name="ne_type" value="OTHER" required>OTHER
+                        </td>
                     </tr>
+                    <tr>
+                        <th>Faculty Incharge:</th>
+                        <td> <label name="ne_date"> <?php echo "$facHead"; ?> </label> </td>
+                    </tr>
+                    <td colspan="2" style="align-self: center;"><input type="submit" value="submit"></td>
                 </table>
             </fieldset>
         </form>
@@ -151,6 +174,7 @@
 					var dd = today.getDate();
 					var mm = today.getMonth()+1; //January is 0!
 					var yyyy = today.getFullYear();
+					
 					if(dd<10) {
 					    dd = '0'+dd
 					} 
@@ -160,6 +184,11 @@
 					today = yyyy + '-' + mm + '-' + dd ;
                     if( new Date(chosen_date).getTime() >= new Date(today).getTime() )
                     {
+                        //date entered is valid
+                        
+                        //converting date from yy-mm-dd to dd/mm/yy
+                        c_date_arr = chosen_date.split('-');
+                        document.getElementById('ne_date').innerHTML = c_date_arr[2]+'/'+c_date_arr[1]+'/'+c_date_arr[0];
                         if(document.getElementById('classroom').checked){
                             inflate_blocks('classroom');
                         }
