@@ -1,107 +1,67 @@
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="../../css/room_blocks.css">
+        <link rel="stylesheet" type="text/css" href="../../css/new_events.css">
         <script src="../../js/new_events.js"></script>
     </head>
 
     <?php
         include "../../data/get_data.php";
         session_start();
-        $query = get_table_data_query("select * from user where uid =" .$_SESSION["uid"].";")[0];
-        $commName=$query['comm_name'];
-        $facHead=$query['fac_head'];
-       
     ?>
     <form name=form_block action="" method="post" id="form_block">
-
         <div id="snackbar"></div>  <!--Div is necessary for snackbar.-->
-
+        <input type=date id="date_picker" name=date_picker" onchange = "date_time()"><br>
         <input type=radio name="block" id=classroom value=classroom><label for=classroom>classroom</label>
         <input type=radio name="block" id=lab value=lab><label for=lab>lab</label>
         <input type=radio name="block" id=others value=others><label for=others>others</label><br>
-        <input type=date id="date_picker" name=date_picker" onchange = "date_time()">
         <div id=list_blocks></div>
-        <div id=month_view></div>
+        <div id=month_view class="month_view"></div>
         <input name="submit" type="submit" id="submit" style="display:none"/>
     </form>
-
     <div>
         <form name="new_event" action="new_events_2.php" id="new_event" onsubmit="return validate_form()" method="post" style="display: none">
             <fieldset>
                 <legend>New Event</legend>
                 <table>
                     <tr>
-                        <th>Committee Name:</th>
-                        <td><label name="ne_comm_name"> <?php echo "$commName";?> </label></td>
-                    </tr>
-
-                    <tr>
-                        <th>Event Title:</th>
-                        <td><input type="text" name="ne_title" required></td>
-                    </tr>
-
-                    <tr>
-                        <th>Event Date:</th>
-                        <td><label name="ne_date">  </label></td> <!-- Date is to be echoed inside the label -->
-                    </tr>
-
-                    <tr>
-                        <th>Description</th>
-                        <td><textarea name="ne_desc" noresize required></textarea></td>
-                    </tr>
-
-                    <tr>
-                        <th>Room No</th>
-                        <td><label name="ne_date"> </label></td> <!-- Room no prev clicked,is to be echoed inside the label -->
-                    </tr>
-
-                    <tr>
-                        <th>Start Time:</th>
-                        <td><input type="time" name="ne_start_time" required></td>
+                        <th>Title</th>
+                        <td><input type="text" name="ne_title"></td>
                     </tr>
                     <tr>
-                        <th>End Time:</th>
-                        <td><input type="time" name="ne_end_time" required></td>
+                        <th>Tags</th>
+                        <td><input type="text" name="ne_tags"></td>
                     </tr>
-
-                    <tr>
-                        <th>Tags:</th>
-                        <td>
-                        	<input type="radio" name="ne_tags" value="MOSSAIC" required>MOSSAIC
-                        	<input type="radio" name="ne_tags" value="IRIS" required>IRIS
-                        	<input type="radio" name="ne_tags" value="NONE" required>NONE
-                        </td>
-                    </tr>
-
                     <tr>
                         <th>Type</th>
+                        <td><input type="text" name="ne_type"></td>
+                    </tr>
+                    <tr>
+                        <th>Room No</th>
+                        <td><input type="text" name="ne_room_no" id="ne_room_no" readonly></td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td><textarea noresize></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Committee ID
+                        </th>
                         <td>
-                        	<input type="radio" name="ne_type" value="EVENT" required>EVENT
-                        	<input type="radio" name="ne_type" value="SEMINAR" required>SEMINAR
-                        	<input type="radio" name="ne_type" value="WORKSHOP" required>WORKSHOP
-                        	<input type="radio" name="ne_type" value="MEETING" required>MEETING
-                        	<input type="radio" name="ne_type" value="OTHER" required>OTHER
+                            <center>
+                                <label>
+                                    <?php echo $_SESSION["uid"]; ?>
+                                </label>
+                            </center>
                         </td>
                     </tr>
-
                     <tr>
-                        <th>Faculty Incharge:</th>
-                        <td> <label name="ne_date"> <?php echo "$facHead"; ?> </label> </td>
-                    </tr>
-
-                    <!-- <tr>
-                        <th>Committee ID</th>
-                        <td><?php echo $_SESSION["uid"]; ?></td>
-                    </tr> -->
-
-                    <tr>
-                        <td colspan="2" style="align-self: center;"><input type="submit" value="submit"></td>
+                        <td><input type="submit" value="submit"></td>
                     </tr>
                 </table>
             </fieldset>
         </form>
     </div>
-
     <?php
         function get_list($arr){
         	return sprintf("[%s]", implode(",", $arr));
@@ -121,7 +81,6 @@
             for($i = 0; $i < count($table_temp); $i++){
                 array_push($all_room_nos, sprintf("\"%s\"", $table_temp[$i]["room_no"]));
             }
-
             //getting all booked room_numbers.
             $table = get_table_data_query(
                 sprintf(
@@ -131,7 +90,6 @@
                                           and r.room_no = e.room_no", $room_type
                 )
             );
-
             $status = array();
             for($i = 0; $i < count($all_room_nos); $i++){
                 $set = false;
@@ -147,13 +105,11 @@
             }
             return get_list($status);
         }
-
         echo "
         	<script>
 			    classroom = [];
 				lab = [];
 				others = [];
-
 				
                 function remove_new_event_form(){
                     document.getElementById('new_event').style.display = 'none';
@@ -195,7 +151,6 @@
 					var dd = today.getDate();
 					var mm = today.getMonth()+1; //January is 0!
 					var yyyy = today.getFullYear();
-
 					if(dd<10) {
 					    dd = '0'+dd
 					} 
@@ -203,7 +158,6 @@
 					    mm = '0'+mm
 					} 
 					today = yyyy + '-' + mm + '-' + dd ;
-
                     if( new Date(chosen_date).getTime() >= new Date(today).getTime() )
                     {
                         if(document.getElementById('classroom').checked){
@@ -222,22 +176,15 @@
                             show_snackbar('Date should be greater than or equal to current Date.');
                             date_picker.value = '';  //resetting the date
                     }
-
 				}
-				function seggregate_data(obj){
-				    for(i = 0; i<obj.length; i++){
-				        switch(obj[i][\"room_type\"]){
-				            case \"classroom\" : classroom.push(obj[i][\"room_no\"]); break;
-				            case \"lab\" : lab.push(obj[i][\"room_no\"]); break;
-				            case \"others\" : others.push(obj[i][\"room_no\"]); break;
-				        } 
-				    }
-				}
-
 	        	function altr(event) {
                     remove_new_event_form();
                     document.getElementById('ne_room_no').value = event.srcElement.innerHTML;
 	        	    document.getElementById('new_event').style.display = 'block';
+	        	}
+	        	function cannot_book(){
+                    remove_new_event_form();
+                    show_snackbar('cannot book already allocated room.');
 	        	}
 	        	function inflate_blocks(name){
                     if(name != ''){
@@ -292,12 +239,12 @@
                             if(status != 'a') {
                                 blobi.style.cursor = 'pointer';
                                 document.getElementById('blob'+i).addEventListener('click', altr , false);
+                            } else {
+                                document.getElementById('blob'+i).addEventListener('click', cannot_book , false);
                             }
                         }
                     }
 				}
-
-
 				function bind_radio_listener(name){
 		        	var radios = document.getElementsByName(\"block\");
 				    for(radio in radios) {
