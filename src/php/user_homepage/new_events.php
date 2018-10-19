@@ -38,7 +38,9 @@
                 <table>
                     <tr>
                         <th>Committee Name:</th>
-                        <td><label name="ne_comm_name"> <?php echo "$commName";?> </label></td>
+                        <td><input type="text" name="ne_comm_name" id="ne_comm_name" readonly value=<?php echo "$commName";?>> 
+
+                        </td>
                     </tr>
                     <tr>
                         <th>Event Title</th>
@@ -223,7 +225,7 @@
                     remove_new_event_form();
                     document.getElementById('ne_room_no').value = event.srcElement.innerHTML;
 	        	    document.getElementById('new_event').style.display = 'block';
-	        	}   
+	        	}
 	        	
 	        	function cannot_book(){
                     remove_new_event_form();
@@ -233,8 +235,19 @@
 	        	function inflate_blocks(name){
                     if(name != ''){
                         iframe = document.getElementById('iframe');
+                        alert((iframe.src).split('?')[0]+'?date='+chosen_date+'&which_radio='+name);
                         iframe.src = (iframe.src).split('?')[0]+'?date='+chosen_date+'&which_radio='+name;
+                        all_room_nos = {
+                            \"classroom\" : ".$_SESSION['c_r'] .", 
+                            \"lab\"       : ".$_SESSION['l_r'] .",
+                            \"others\"    : ".$_SESSION['o_r'] .",
+                        };
                         
+                        all_room_nos_status = {
+                            \"classroom\" : ".$_SESSION['c_s'] .", 
+                            \"lab\"       : ".$_SESSION['l_s'] .",
+                            \"others\"    : ".$_SESSION['o_s'] .",
+                        };
                         
                         var xhttp = new XMLHttpRequest();
                         xhttp.onreadystatechange = function() {
