@@ -38,7 +38,9 @@
                 <table>
                     <tr>
                         <th>Committee Name:</th>
-                        <td><label name="ne_comm_name"> <?php echo "$commName";?> </label></td>
+                        <td><input type="text" name="ne_comm_name" id="ne_comm_name" readonly value=<?php echo "$commName";?>> 
+
+                        </td>
                     </tr>
                     <tr>
                         <th>Event Title</th>
@@ -52,7 +54,7 @@
                     </tr>
                     <tr>
                         <th>Description</th>
-                        <td><textarea noresize></textarea></td>
+                        <td><textarea noresize name="ne_desc" id="ne_desc"></textarea></td>
                     </tr>
                     <tr>
                         <th>Room No</th>
@@ -87,7 +89,7 @@
                     </tr>
                     <tr>
                         <th>Faculty Incharge:</th>
-                        <td> <label> <?php echo "$facHead"; ?> </label> </td>
+                        <td> <label></label>> <?php echo "$facHead"; ?> </label> </td>
                     </tr>
                     <td colspan="2" style="align-self: center;"><input type="submit" value="submit"></td>
                 </table>
@@ -233,7 +235,7 @@
 	        	function inflate_blocks(name){
                     if(name != ''){
                         iframe = document.getElementById('iframe');
-                        alert((iframe.src).split('?')[0]+'?date='+chosen_date+'&which_radio='+name);
+                        //alert((iframe.src).split('?')[0]+'?date='+chosen_date+'&which_radio='+name);
                         iframe.src = (iframe.src).split('?')[0]+'?date='+chosen_date+'&which_radio='+name;
                         all_room_nos = {
                             \"classroom\" : ".$_SESSION['c_r'] .", 

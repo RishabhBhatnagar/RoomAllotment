@@ -17,7 +17,7 @@
         $query = $qry;
         $result = $mysqli->query($query);
         
-        foreach(array("update", "modify", "alert", "delete", "trunc") as $command){
+        foreach(array("update", "modify", "alert", "delete", "trunc", "insert") as $command){
             if(stristr($query, $command)){
                 return "";
             }
