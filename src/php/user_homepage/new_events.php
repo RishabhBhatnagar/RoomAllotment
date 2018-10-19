@@ -3,17 +3,22 @@
         <link rel="stylesheet" type="text/css" href="../../css/new_events.css">
         <script src="../../js/new_events.js"></script>
     </head>
-
     <?php
         include "../../data/get_data.php";
         session_start();
-    $query = get_table_data_query("select * from user where uid =" .$_SESSION["uid"].";")[0];
-    $commName=$query['comm_name'];
-    $facHead=$query['fac_head'];
+        $_SESSION['c_r'] = get_room_numbers("c");
+        $_SESSION['l_r'] = get_room_numbers("l");
+        $_SESSION['o_r'] = get_room_numbers("o");
 
+        $_SESSION['c_s'] = get_room_numbers_status("c");
+        $_SESSION['l_s'] = get_room_numbers_status("l");
+        $_SESSION['o_s'] = get_room_numbers_status("o");
+
+        $query = get_table_data_query("select * from user where uid =" .$_SESSION["uid"].";")[0];
+        $commName=$query['comm_name'];
+        $facHead=$query['fac_head'];
     ?>
     <form name=form_block action="" method="post" id="form_block">
-
         <div id="snackbar"></div>  <!--Div is necessary for snackbar.-->
 
         <input type=date id="date_picker" name=date_picker" onchange = "date_time()"><br>
@@ -23,6 +28,8 @@
         <div id=list_blocks></div>
         <div id=month_view class="month_view"></div>
         <input name="submit" type="submit" id="submit" style="display:none"/>
+        <iframe id="iframe" src="new_events_1.php"></iframe>
+
     </form>
     <div>
         <form name="new_event" action="new_events_2.php" id="new_event" onsubmit="return validate_form()" method="post" style="display: none">
@@ -39,7 +46,9 @@
                     </tr>
                     <tr>
                         <th>Event Date:</th>
-                        <td><label id="ne_date"></label></td> <!-- Date is to be echoed inside the label -->
+                        <td><label id="ne_date"></label></td>
+                        <input type="hidden" name="ne_date" id="new_event_date">
+                        <input type="hidden" name="conflict_possible" id="conflict_possible">
                     </tr>
                     <tr>
                         <th>Description</th>
@@ -51,11 +60,11 @@
                     </tr>
                     <tr>
                         <th>Start Time:</th>
-                        <td><input type="time" name="ne_start_time" required></td>
+                        <td><input type="time" name="ne_start_time" id="ne_start_time" min="06:00" max="19:00" value="12:12"required></td>
                     </tr>
                     <tr>
                         <th>End Time:</th>
-                        <td><input type="time" name="ne_end_time" required></td>
+                        <td><input type="time" name="ne_end_time" id="ne_end_time" required min="07:00" max="20:00" value="13:13"></td>
                     </tr>
 
                     <tr>
@@ -78,7 +87,7 @@
                     </tr>
                     <tr>
                         <th>Faculty Incharge:</th>
-                        <td> <label name="ne_date"> <?php echo "$facHead"; ?> </label> </td>
+                        <td> <label> <?php echo "$facHead"; ?> </label> </td>
                     </tr>
                     <td colspan="2" style="align-self: center;"><input type="submit" value="submit"></td>
                 </table>
@@ -86,8 +95,9 @@
         </form>
     </div>
     <?php
+
         function get_list($arr){
-        	return sprintf("[%s]", implode(",", $arr));
+            return sprintf("[%s]", implode(",", $arr));
         }
         function get_room_numbers($room_type){
         	$table = get_table_data_query(sprintf("select * from room where room_type = '%s'", $room_type));
@@ -189,6 +199,9 @@
                         //converting date from yy-mm-dd to dd/mm/yy
                         c_date_arr = chosen_date.split('-');
                         document.getElementById('ne_date').innerHTML = c_date_arr[2]+'/'+c_date_arr[1]+'/'+c_date_arr[0];
+                        document.getElementById('new_event_date').value = c_date_arr[2]+'/'+c_date_arr[1]+'/'+c_date_arr[0];
+                        
+                        
                         if(document.getElementById('classroom').checked){
                             inflate_blocks('classroom');
                         }
@@ -211,22 +224,27 @@
                     document.getElementById('ne_room_no').value = event.srcElement.innerHTML;
 	        	    document.getElementById('new_event').style.display = 'block';
 	        	}
+	        	
 	        	function cannot_book(){
                     remove_new_event_form();
                     show_snackbar('cannot book already allocated room.');
 	        	}
+	        	
 	        	function inflate_blocks(name){
                     if(name != ''){
+                        iframe = document.getElementById('iframe');
+                        alert((iframe.src).split('?')[0]+'?date='+chosen_date+'&which_radio='+name);
+                        iframe.src = (iframe.src).split('?')[0]+'?date='+chosen_date+'&which_radio='+name;
                         all_room_nos = {
-                            \"classroom\" : ".get_room_numbers("c").", 
-                            \"lab\"       : ".get_room_numbers("l").",
-                            \"others\"    : ".get_room_numbers("o").",
+                            \"classroom\" : ".$_SESSION['c_r'] .", 
+                            \"lab\"       : ".$_SESSION['l_r'] .",
+                            \"others\"    : ".$_SESSION['o_r'] .",
                         };
                         
                         all_room_nos_status = {
-                            \"classroom\" : ".get_room_numbers_status("c").", 
-                            \"lab\"       : ".get_room_numbers_status("l").",
-                            \"others\"    : ".get_room_numbers_status("o").",
+                            \"classroom\" : ".$_SESSION['c_s'] .", 
+                            \"lab\"       : ".$_SESSION['l_s'] .",
+                            \"others\"    : ".$_SESSION['o_s'] .",
                         };
                         
                         div_ele = document.getElementById(\"list_blocks\");
@@ -257,10 +275,14 @@
                             blobi.innerHTML = day;
                             blobi.id = \"blob\"+i;
                             cname = '';
+                            conflict_possible = false;
                             switch (status) {
                                 case 'a' : cname = 'single_block_a'; break;
                                 case 'u' : cname = 'single_block_u'; break;
-                                case 'p' : cname = 'single_block_p'; break;
+                                case 'p' : 
+                                    cname = 'single_block_p';
+                                    conflict_possible = true;
+                                    break;
                                 case 'r' : cname = 'single_block_r'; break;
                             }
                             blobi.className = cname;
@@ -271,6 +293,7 @@
                             } else {
                                 document.getElementById('blob'+i).addEventListener('click', cannot_book , false);
                             }
+                            document.getElementById('conflict_possible').value = conflict_possible;
                         }
                     }
 				}
@@ -312,4 +335,4 @@
         	</script>
         ";
     ?>
-</html>
+</html

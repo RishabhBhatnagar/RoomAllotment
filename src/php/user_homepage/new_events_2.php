@@ -7,6 +7,7 @@
  */
     include "../../data/get_data.php";
     session_start();
-    echo $_POST["ne_tags"];
+    echo $_POST["ne_date"];
+    echo $_POST['conflict_possible'];
     //print_r(dynamicQuery("insert into event_details v"))
 ?>
