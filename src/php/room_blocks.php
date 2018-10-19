@@ -1,7 +1,7 @@
 <html>
 
 <script type="text/javascript" src = "../data/get_data.js"></script>
-<link rel="stylesheet" type="text/css" href="../css/room_blocks.css">
+<link rel="stylesheet" type="text/css" href="../css/new_events.css">
     <form name=form_block action="" method="post" id="form_block">
         
         <input type=radio name="block" id=classroom value=classroom><label for=classroom>classroom</label>

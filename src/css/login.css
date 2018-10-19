@@ -13,143 +13,159 @@ hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padd
 input,select{vertical-align:middle}
 li{list-style:none}
 
+.overlay{
+    position:absolute;
+    background-color: white;
+    color: white;
+    top:50%;
+    z-index:99999;
+    left:50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    mix-blend-mode: color-burn;
+}
+
 html,body{
-  width:100%;
-  height:100%;
-  background:#111;
+    width:100%;
+    height:100%;
+    background:#111;
 }
 
 html{
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body{
-  font:normal 75% Arial, Helvetica, sans-serif;
+    font:normal 75% Arial, Helvetica, sans-serif;
 }
 
 canvas{
-  display:block;
-  vertical-align:bottom;
+    display:block;
+    vertical-align:bottom;
 }
 
 
 .count-particles{
-  background: #000022;
-  position: absolute;
-  top: 48px;
-  left: 0;
-  width: 80px;
-  color: #13E8E9;
-  font-size: .8em;
-  text-align: left;
-  text-indent: 4px;
-  line-height: 14px;
-  padding-bottom: 2px;
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: bold;
+    background: #000022;
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 80px;
+    color: #13E8E9;
+    font-size: .8em;
+    text-align: left;
+    text-indent: 4px;
+    line-height: 14px;
+    padding-bottom: 2px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
 }
 
 .js-count-particles{
-  font-size: 1.1em;
+    font-size: 1.1em;
 }
 
 #stats,
 .count-particles{
-  -webkit-user-select: none;
-  margin-top: 5px;
-  margin-left: 5px;
+    -webkit-user-select: none;
+    margin-top: 5px;
+    margin-left: 5px;
 }
 
 #stats{
-  border-radius: 3px 3px 0 0;
-  overflow: hidden;
+    border-radius: 3px 3px 0 0;
+    overflow: hidden;
 }
 
 .count-particles{
-  border-radius: 0 0 3px 3px;
+    border-radius: 0 0 3px 3px;
 }
 
 
 #particles-js{
-  width: 100%;
-  height: 100%;
-  background-color: #000000;
-  background-image: url('');
-  background-size: cover;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    background-color: #004554;
+    background-image: url('');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
 }
 
 
 h1{
-  color: white;
-  text-align: center;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 30px;
-  margin-top:3%;
+    color: white;
+    text-align: center;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 30px;
+    margin-top:3%;
 }
 h2{
-  color: white;
-  text-align: left;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 20px;
-  margin-left: 20%;
-  margin-top: 8%;
+    color: white;
+    text-align: left;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
+    margin-left: 20%;
+    margin-top: 8%;
 }
 p{
-  color: white;
-  text-align:left;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 15px;
-  width:40%;
-  margin-left: 5%;
+    color: white;
+    text-align:left;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+    width:40%;
+    margin-left: 5%;
 }
 font{
-  color: white;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 15px;
+    color: white;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
 }
 input{
-  color: black;
-  padding: 10px;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 15px;
+    color: black;
+    padding: 10px;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
 }
 button{
-  color: white;
-  padding: 10px;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 15px;
-  background-color: #282828;
-  opacity: 0.9;
+    color: white;
+    padding: 10px;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+    background-color: #282828;
+    opacity: 0.9;
 }
 .right {
-  float: right;
-  margin-top: 8%;
-  height: 60%;
-  width: 35%;
+    float: right;
+    margin-top: 8%;
+    height: 60%;
+    width: 35%;
 }
 #btmlayer{
-  position: absolute;
-  z-index:1;
-  width: 100%;
-  height: 100%;
+    position: absolute;
+    z-index:1;
+    width: 100%;
+    height: 100%;
 }
 #toplayer{
-  position: absolute;
-  z-index:2;
-  width: 100%;
-  height: 100%;
+    position: absolute;
+    z-index:2;
+    width: 100%;
+    height: 100%;
 }
 .input-group {
-  display: flex;
+    display: flex;
 }
 .icon {
-  padding: 10px;
-  background: white;
-  color: #282828;
-  text-align: center;
+    padding: 10px;
+    background: white;
+    color: #282828;
+    text-align: center;
 }
 .btn-primary:hover {
-  opacity: 1;
+    opacity: 1;
 }

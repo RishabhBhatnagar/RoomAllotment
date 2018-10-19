@@ -67,8 +67,11 @@
                 $who = 'g';
             }
 
-                if(in_array($who, array("a", "u"))){
+                if(in_array($who, array("a" ))){
                     echo "<script>document.getElementById(\"pending_events\").click();</script>";
+                }
+                if($who == 'u'){
+                    echo "<script>document.getElementById(\"new_events\").click();</script>";
                 }
 
                 $display_bars = $bars[$who];  //select elements to unhide based on user type.

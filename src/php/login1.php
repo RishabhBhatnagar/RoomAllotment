@@ -1,3 +1,4 @@
+
 <html>
 <head>
     <link rel="stylesheet" media="screen" href="../css/login.css">
@@ -6,13 +7,12 @@
 
 <body>
 <?php
-session_start();
-session_unset();    // for disabling direct traversal to any page when user/admin forgot to logout.
+    session_start();
+    session_unset();    // for disabling direct traversal to any page when user/admin forgot to logout.
 ?>
 <a method = get href = "set_guest.php" id="for_guest">kdjbvlzdkv</a>
-
 <div id="particles-js">
-    <div class="overlay">
+    <div id="toplayer">
         <div id="container">
             <h1>ROOM  ALLOTMENT</h1>
         </div>
@@ -36,9 +36,9 @@ session_unset();    // for disabling direct traversal to any page when user/admi
                 <br>
 
                 <!-->
-                Submitting the form will send a post request to registration page which
-                will validate user from dataBase by checking username and hashed password
-                if the user is not validated, control comes back to this page.
+                    Submitting the form will send a post request to registration page which
+                    will validate user from dataBase by checking username and hashed password
+                    if the user is not validated, control comes back to this page.
                 <!-->
                 <button type="submit" class="btn-primary">Submit</button>
                 <br>
@@ -56,16 +56,16 @@ session_unset();    // for disabling direct traversal to any page when user/admi
             Committees can check the availability of various rooms such as the classrooms, labs, halls, etc that they can use strictly for conducting workshops or organizing events or seminars. Along with that, committee members can also view the list of rooms booked by them for various events along with the list of bookings that have been approved by the person incharge.
         </p>
         © 2018 GitHub, Inc.
+
+    </div>
+    <div id="btmlayer" >
+        <script src="../particles.js"></script>
+        <script>
+            particlesJS.load('particles-js', '../particles.json', function(){
+                console.log('particles.json loaded...');
+            });
+        </script>
     </div>
 </div>
-</div>
-
-<script src="../particles.js"></script>
-<script>
-    particlesJS.load('particles-js', '../particles.json', function(){
-        console.log('particles.json loaded...');
-    });
-</script>
-
 </body>
 </html>
