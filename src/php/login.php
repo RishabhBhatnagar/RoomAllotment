@@ -1,3 +1,4 @@
+
 <html>
 <head>
     <link rel="stylesheet" media="screen" href="../css/login.css">
@@ -6,8 +7,8 @@
 
 <body>
 <?php
-session_start();
-session_unset();    // for disabling direct traversal to any page when user/admin forgot to logout.
+    session_start();
+    session_unset();    // for disabling direct traversal to any page when user/admin forgot to logout.
 ?>
 <div id="particles-js">
     <div id="toplayer">
@@ -62,6 +63,7 @@ session_unset();    // for disabling direct traversal to any page when user/admi
                 console.log('particles.json loaded...');
             });
         </script>
+<!----> wega;rhstklndhg. m
     </div>
 </div>
 </body>

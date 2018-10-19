@@ -24,7 +24,11 @@
         <a href = "pending_events.php"  target="main_frame"  id = "pending_events"   style="display:none; background-color: #00e676">Pending Events </a><br>
         <a href = "new_events.php"      target="main_frame"  id = "new_events"       style="display:none; background-color: #00e676">New Events     </a><br>
         <a href = "rejected.php"        target="main_frame"  id = "rejected_events"  style="display:none; background-color: #00e676">Rejected Events</a><br>
+<<<<<<< HEAD
+        <a href = "acepted.php"         target="main_frame"  id = "accepted_events"  style="display:none; background-color: #00e676">Accepted Events</a>
+=======
         <a href = "acepted.php"         target="main_frame"  id = "accepted_events"  style="display:none; background-color: #00e676">Accepted Events</a><br>
+>>>>>>> 4f6c20fe845bddfd26fc4d5197c0c577280d4c99
         <a href = "feedback.php"        target="main_frame"  id = "feedback_form"    style="display:none; background-color: #00e676">Feedback Form</a><br>
 
         <?php
@@ -52,9 +56,9 @@
 
     <?php
         $bars = array(
-            "a" => array("pending_events", "acepted", "rejected_events", "accepted_events"),
-            "u" => array("previous_events", "pending_events", "new_events"),
-            "g" => array("comm_name")
+            "a" => array("pending_events", "acepted", "rejected_events", "accepted_events", "feedback_form"),
+            "u" => array("previous_events", "pending_events", "new_events", "feedback_form"),
+            "g" => array("comm_name", "feedback_form")
         );
 
         if(isset($_SESSION["uid"])){
@@ -68,7 +72,7 @@
                 $who = 'g';
             }
 
-                if(in_array($who, array("a" ))){
+                if(in_array($who, array("a"))){
                     echo "<script>document.getElementById(\"pending_events\").click();</script>";
                 }
                 if($who == 'u'){

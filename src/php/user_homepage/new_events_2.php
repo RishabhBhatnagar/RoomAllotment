@@ -6,9 +6,10 @@
  * Time: 5:05 PM
  */
     include "../../data/get_data.php";
+    require 'same_copy_paste.php';
     session_start();
 
-    $use_me = array(); 
+    $use_me = array();
 
     $ne_title = trim($_REQUEST["ne_title"]);
     $ne_comm_name = trim($_REQUEST["ne_comm_name"]);
@@ -26,19 +27,14 @@
 
     //event_details
     get_table_data_query("insert into event_details values (NULL, '$ne_title', '$ne_desc', '$ne_tags', '$ne_type', 'p', ".$_SESSION['uid'].", '$ne_room_no')");
-	
-	$a = get_table_data_query("select eid from event_details where title = '$ne_title' and description = '$ne_desc';");
-	//booking_details
-	get_table_data_query("insert into booking_detail values (".$a[0]['eid'].", '$ne_room_no', '$ne_start_time', '$ne_end_time', '$ne_date', LOCALTIMESTAMP)");
 
-	show_snackbar("REQUEST IS SENT!!!");
-	echo "
-		<script>
-			window.history.back();
-		</script>
-	";
+    $a = get_table_data_query("select eid from event_details where title = '$ne_title' and description = '$ne_desc';");
+    //booking_details
+    get_table_data_query("insert into booking_detail values (".$a[0]['eid'].", '$ne_room_no', '$ne_start_time', '$ne_end_time', '$ne_date', LOCALTIMESTAMP)");
 
-
-
-
+    show_snackbar("REQUEST IS SENT!!!");
+    echo "
+    <script>
+        window.history.back();
+    </script>";
 ?>
