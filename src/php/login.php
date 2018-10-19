@@ -63,7 +63,6 @@
                 console.log('particles.json loaded...');
             });
         </script>
-<!----> wega;rhstklndhg. m
     </div>
 </div>
 </body>
