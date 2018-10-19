@@ -55,7 +55,6 @@
         <p style="font-family: 'Lobster', cursive">
             Committees can check the availability of various rooms such as the classrooms, labs, halls, etc that they can use strictly for conducting workshops or organizing events or seminars. Along with that, committee members can also view the list of rooms booked by them for various events along with the list of bookings that have been approved by the person incharge.
         </p>
-
     </div>
     <div id="btmlayer" >
         <script src="../particles.js"></script>
