@@ -6,6 +6,7 @@
  * Time: 5:05 PM
  */
     include "../../data/get_data.php";
+    require "same_copy_paste.php";
     session_start();
     echo $_POST["ne_date"];
     echo $_POST['conflict_possible'];

@@ -223,7 +223,7 @@
                     remove_new_event_form();
                     document.getElementById('ne_room_no').value = event.srcElement.innerHTML;
 	        	    document.getElementById('new_event').style.display = 'block';
-	        	}
+	        	}   
 	        	
 	        	function cannot_book(){
                     remove_new_event_form();
@@ -233,68 +233,79 @@
 	        	function inflate_blocks(name){
                     if(name != ''){
                         iframe = document.getElementById('iframe');
-                        alert((iframe.src).split('?')[0]+'?date='+chosen_date+'&which_radio='+name);
                         iframe.src = (iframe.src).split('?')[0]+'?date='+chosen_date+'&which_radio='+name;
-                        all_room_nos = {
-                            \"classroom\" : ".$_SESSION['c_r'] .", 
-                            \"lab\"       : ".$_SESSION['l_r'] .",
-                            \"others\"    : ".$_SESSION['o_r'] .",
-                        };
                         
-                        all_room_nos_status = {
-                            \"classroom\" : ".$_SESSION['c_s'] .", 
-                            \"lab\"       : ".$_SESSION['l_s'] .",
-                            \"others\"    : ".$_SESSION['o_s'] .",
-                        };
                         
-                        div_ele = document.getElementById(\"list_blocks\");
-                        room_nos = all_room_nos[name];
-                        room_nos_status = all_room_nos_status[name];
-                        
-                        block_length = 4;
-                        
-                        breakpoints = [3, 6, 10, 15];
-                        clear_all_fields();
-                        
-                        row_number = 0;
-                        
-                        for(i = 0; i<room_nos.length; i++){
-                            for(index in breakpoints){
-                                if(i == breakpoints[index]){
-                                    row_number += 1;
-                                    break_div = document.createElement(\"p\");
-                                    break_div.innerHTML = \"&nbsp\";
-                                    container.append(break_div);
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                                
+                                
+                                all_room_nos = {
+                                    \"classroom\" : ".$_SESSION['c_r'] .", 
+                                    \"lab\"       : ".$_SESSION['l_r'] .",
+                                    \"others\"    : ".$_SESSION['o_r'] .",
+                                };
+                                
+                                all_room_nos_status = {
+                                    \"classroom\" : ".$_SESSION['c_s'] .", 
+                                    \"lab\"       : ".$_SESSION['l_s'] .",
+                                    \"others\"    : ".$_SESSION['o_s'] .",
+                                };
+                                
+                                div_ele = document.getElementById(\"list_blocks\");
+                                room_nos = all_room_nos[name];
+                                room_nos_status = all_room_nos_status[name];
+                                
+                                block_length = 4;
+                                
+                                breakpoints = [3, 6, 10, 15];
+                                clear_all_fields();
+                                
+                                row_number = 0;
+                                
+                                for(i = 0; i<room_nos.length; i++){
+                                    for(index in breakpoints){
+                                        if(i == breakpoints[index]){
+                                            row_number += 1;
+                                            break_div = document.createElement(\"p\");
+                                            break_div.innerHTML = \"&nbsp\";
+                                            container.append(break_div);
+                                        }
+                                    }
+                                    day = room_nos[i];
+                                    status = room_nos_status[i];
+                                    
+                                    if(day.length < block_length){day = \" \"+day;}
+                                    blobi = document.createElement(\"span\");
+                                    blobi.innerHTML = day;
+                                    blobi.id = \"blob\"+i;
+                                    cname = '';
+                                    conflict_possible = false;
+                                    switch (status) {
+                                        case 'a' : cname = 'single_block_a'; break;
+                                        case 'u' : cname = 'single_block_u'; break;
+                                        case 'p' : 
+                                            cname = 'single_block_p';
+                                            conflict_possible = true;
+                                            break;
+                                        case 'r' : cname = 'single_block_r'; break;
+                                    }
+                                    blobi.className = cname;
+                                    container.appendChild(blobi);
+                                    if(status != 'a') {
+                                        blobi.style.cursor = 'pointer';
+                                        document.getElementById('blob'+i).addEventListener('click', altr , false);
+                                    } else {
+                                        document.getElementById('blob'+i).addEventListener('click', cannot_book , false);
+                                    }
+                                    document.getElementById('conflict_possible').value = conflict_possible;
                                 }
                             }
-                            day = room_nos[i];
-                            status = room_nos_status[i];
-                            
-                            if(day.length < block_length){day = \" \"+day;}
-                            blobi = document.createElement(\"span\");
-                            blobi.innerHTML = day;
-                            blobi.id = \"blob\"+i;
-                            cname = '';
-                            conflict_possible = false;
-                            switch (status) {
-                                case 'a' : cname = 'single_block_a'; break;
-                                case 'u' : cname = 'single_block_u'; break;
-                                case 'p' : 
-                                    cname = 'single_block_p';
-                                    conflict_possible = true;
-                                    break;
-                                case 'r' : cname = 'single_block_r'; break;
-                            }
-                            blobi.className = cname;
-                            container.appendChild(blobi);
-                            if(status != 'a') {
-                                blobi.style.cursor = 'pointer';
-                                document.getElementById('blob'+i).addEventListener('click', altr , false);
-                            } else {
-                                document.getElementById('blob'+i).addEventListener('click', cannot_book , false);
-                            }
-                            document.getElementById('conflict_possible').value = conflict_possible;
-                        }
+                        };
+                        xhttp.open(\"GET\", \"new_events_1.php?date=\"+chosen_date+\"&which_radio=\"+name, true);
+                        xhttp.send();
+                        
                     }
 				}
 				function bind_radio_listener(name){

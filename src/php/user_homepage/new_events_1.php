@@ -60,7 +60,7 @@ include "../../data/get_data.php";
         $_SESSION['c_s'] = get_room_numbers_status("c");
         $_SESSION['l_s'] = get_room_numbers_status("l");
         $_SESSION['o_s'] = get_room_numbers_status("o");
-
         echo $_REQUEST["date"];
     }
+    echo "sdlkdv";
 ?>
