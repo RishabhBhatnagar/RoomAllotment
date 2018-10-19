@@ -9,12 +9,10 @@
 session_start();
 session_unset();    // for disabling direct traversal to any page when user/admin forgot to logout.
 ?>
-<a method = get href = "set_guest.php" id="for_guest">kdjbvlzdkv</a>
-
 <div id="particles-js">
-    <div class="overlay">
+    <div id="toplayer">
         <div id="container">
-            <h1>ROOM  ALLOTMENT</h1>
+            <h1 style="font-family: 'Lobster', cursive;">ROOM  <span style="color: #292c2f">ALLOTMENT</span></h1>
         </div>
         <hr color="white">
         <div class="right">
@@ -35,37 +33,36 @@ session_unset();    // for disabling direct traversal to any page when user/admi
                 </div>
                 <br>
 
-                <!-->
-                Submitting the form will send a post request to registration page which
-                will validate user from dataBase by checking username and hashed password
-                if the user is not validated, control comes back to this page.
-                <!-->
+                <!--
+                    Submitting the form will send a post request to registration page which
+                    will validate user from dataBase by checking username and hashed password
+                    if the user is not validated, control comes back to this page.
+                -->
                 <button type="submit" class="btn-primary">Submit</button>
                 <br>
             </form>
-            <font>
+            <font style="font-family: 'Lobster', cursive">
                 <br>
                 <!--guest is sent to set_guest which will set the session variable-->
-                Guest login, <a href="set_guest.php" onclick="set_guest()"><font><u>Click here.</u></font></a>
+                Guest login, <a href="set_guest.php" onclick="set_guest()">
+                    <font style="font-family: 'Lobster', cursive"><u>Click here.</u></font></a>
             </font>
         </div>
-        <h2>Welcome</h2>
+        <h2 style="font-family: 'Lobster', cursive">Welcome</h2>
         <br>
         <br>
-        <p>
+        <p style="font-family: 'Lobster', cursive">
             Committees can check the availability of various rooms such as the classrooms, labs, halls, etc that they can use strictly for conducting workshops or organizing events or seminars. Along with that, committee members can also view the list of rooms booked by them for various events along with the list of bookings that have been approved by the person incharge.
         </p>
-        © 2018 GitHub, Inc.
+    </div>
+    <div id="btmlayer" >
+        <script src="../particles.js"></script>
+        <script>
+            particlesJS.load('particles-js', '../particles.json', function(){
+                console.log('particles.json loaded...');
+            });
+        </script>
     </div>
 </div>
-</div>
-
-<script src="../particles.js"></script>
-<script>
-    particlesJS.load('particles-js', '../particles.json', function(){
-        console.log('particles.json loaded...');
-    });
-</script>
-
 </body>
 </html>
