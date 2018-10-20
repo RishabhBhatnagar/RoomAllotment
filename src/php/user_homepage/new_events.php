@@ -9,9 +9,11 @@ session_start();
 $_SESSION['c_r'] = get_room_numbers("c");
 $_SESSION['l_r'] = get_room_numbers("l");
 $_SESSION['o_r'] = get_room_numbers("o");
+
 $_SESSION['c_s'] = get_room_numbers_status("c");
 $_SESSION['l_s'] = get_room_numbers_status("l");
 $_SESSION['o_s'] = get_room_numbers_status("o");
+
 $query = get_table_data_query("select * from user where uid =" .$_SESSION["uid"].";")[0];
 $commName=$query['comm_name'];
 $facHead=$query['fac_head'];
@@ -27,6 +29,7 @@ $facHead=$query['fac_head'];
     <div id=month_view class="month_view"></div>
     <input name="submit" type="submit" id="submit" style="display:none"/>
     <iframe id="iframe" src="new_events_1.php"></iframe>
+
 </form>
 <div>
     <form name="new_event" action="new_events_2.php" id="new_event" onsubmit="return validate_form()" method="post" style="display: none">
@@ -36,6 +39,7 @@ $facHead=$query['fac_head'];
                 <tr>
                     <th>Committee Name:</th>
                     <td><input type="text" name="ne_comm_name" id="ne_comm_name" readonly value=<?php echo "$commName";?>>
+
                     </td>
                 </tr>
                 <tr>
@@ -64,6 +68,7 @@ $facHead=$query['fac_head'];
                     <th>End Time:</th>
                     <td><input type="time" name="ne_end_time" id="ne_end_time" required min="07:00" max="20:00" value="13:13"></td>
                 </tr>
+
                 <tr>
                     <th>Tags:</th>
                     <td>
@@ -92,6 +97,7 @@ $facHead=$query['fac_head'];
     </form>
 </div>
 <?php
+
 function get_list($arr){
     return sprintf("[%s]", implode(",", $arr));
 }
@@ -127,7 +133,6 @@ function get_room_numbers_status($room_type){
                 array_push($status, '"'.$table[$j]["status"].'"');
                 $set = true;
             }
-            return get_list($status);
         }
         if(!$set){
             array_push($status, '"u"');
@@ -264,10 +269,34 @@ echo "
                                     container.append(break_div);
                                 }
                             }
-                        };
-                        xhttp.open(\"GET\", \"new_events_1.php?date=\"+chosen_date+\"&which_radio=\"+name, true);
-                        xhttp.send();
-                        
+                            day = room_nos[i];
+                            status = room_nos_status[i];
+                            
+                            if(day.length < block_length){day = \" \"+day;}
+                            blobi = document.createElement(\"span\");
+                            blobi.innerHTML = day;
+                            blobi.id = \"blob\"+i;
+                            cname = '';
+                            conflict_possible = false;
+                            switch (status) {
+                                case 'a' : cname = 'single_block_a'; break;
+                                case 'u' : cname = 'single_block_u'; break;
+                                case 'p' : 
+                                    cname = 'single_block_p';
+                                    conflict_possible = true;
+                                    break;
+                                case 'r' : cname = 'single_block_r'; break;
+                            }
+                            blobi.className = cname;
+                            container.appendChild(blobi);
+                            if(status != 'a') {
+                                blobi.style.cursor = 'pointer';
+                                document.getElementById('blob'+i).addEventListener('click', altr , false);
+                            } else {
+                                document.getElementById('blob'+i).addEventListener('click', cannot_book , false);
+                            }
+                            document.getElementById('conflict_possible').value = conflict_possible;
+                        }
                     }
 				}
 				function bind_radio_listener(name){
@@ -307,5 +336,5 @@ echo "
 				load_default(\"block\");
         	</script>
         ";
-    ?>
+?>
 </html
