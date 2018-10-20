@@ -113,7 +113,7 @@
                     </tr>
                     <tr>
                         <th>Faculty Incharge:</th>
-                        <td> <label></label>> <?php echo "$facHead"; ?> </label> </td>
+                        <td> <label></label> <?php echo "$facHead"; ?> </label> </td>
                     </tr>
                     <td colspan="2" style="align-self: center;"><input type="submit" value="submit"></td>
                 </table>
