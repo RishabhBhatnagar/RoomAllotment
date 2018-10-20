@@ -28,7 +28,6 @@ $facHead=$query['fac_head'];
     <div id=list_blocks></div>
     <div id=month_view class="month_view"></div>
     <input name="submit" type="submit" id="submit" style="display:none"/>
-    <iframe id="iframe" src="new_events_1.php"></iframe>
 
 </form>
 <div>
@@ -202,17 +201,6 @@ echo "
                         c_date_arr = chosen_date.split('-');
                         document.getElementById('ne_date').innerHTML = c_date_arr[2]+'/'+c_date_arr[1]+'/'+c_date_arr[0];
                         document.getElementById('new_event_date').value = c_date_arr[2]+'/'+c_date_arr[1]+'/'+c_date_arr[0];
-                        
-                        
-                        if(document.getElementById('classroom').checked){
-                            inflate_blocks('classroom');
-                        }
-                        if(document.getElementById('lab').checked){
-                            inflate_blocks('lab');
-                        }
-                        if(document.getElementById('others').checked){
-                            inflate_blocks('others');
-                        }
                     }   
                     else{
                         if(chosen_date != '')
@@ -234,24 +222,26 @@ echo "
 	        	
 	        	function inflate_blocks(name){
                     if(name != ''){
-                        iframe = document.getElementById('iframe');
-                        //alert((iframe.src).split('?')[0]+'?date='+chosen_date+'&which_radio='+name);
-                        iframe.src = (iframe.src).split('?')[0]+'?date='+chosen_date+'&which_radio='+name;
-                        all_room_nos = {
-                            \"classroom\" : ".$_SESSION['c_r'] .", 
-                            \"lab\"       : ".$_SESSION['l_r'] .",
-                            \"others\"    : ".$_SESSION['o_r'] .",
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                               // Typical action to be performed when the document is ready:
+                               answer = ((this.responseText).split('-----')[1]).split('#####');
+                               localStorage.setItem('rno', answer[0]);
+                               localStorage.setItem('status', answer[1]);
+                            }
                         };
+                        xhttp.open(\"GET\", 'new_events_1.php?date='+chosen_date+'&which_radio='+name, true);
+                        xhttp.send();
                         
-                        all_room_nos_status = {
-                            \"classroom\" : ".$_SESSION['c_s'] .", 
-                            \"lab\"       : ".$_SESSION['l_s'] .",
-                            \"others\"    : ".$_SESSION['o_s'] .",
-                        };
+                        room_nos = JSON.parse(localStorage.getItem('rno'));
+                        room_nos_status = JSON.parse(localStorage.getItem('status'));
+                        
+                        
+                        date_picker = document.getElementById('date_picker');
+					    chosen_date = date_picker.value;
                         
                         div_ele = document.getElementById(\"list_blocks\");
-                        room_nos = all_room_nos[name];
-                        room_nos_status = all_room_nos_status[name];
                         
                         block_length = 4;
                         
@@ -317,21 +307,8 @@ echo "
 				}
 				
 				function load_default(radio_name){
-				    
-				    //segregate all table room by room_type.
-				    //get_table_data_query(\"select * from room\");
-				    
 				    // Bind all radio listeners to change room booked states on selection change.
 				    bind_radio_listener(radio_name);
-				    
-				    //get array of radio button / radio group.
-				    var radios = document.getElementsByName(radio_name);
-				    
-                    //set first radio button checked by default.
-                    if(document.getElementById('hide2').value != ''){
-                        radios[0].checked = \"checked\";
-                        inflate_blocks(radios[0].value);
-                    }
 				}
 				load_default(\"block\");
         	</script>
