@@ -115,7 +115,7 @@
                         <th>Faculty Incharge:</th>
                         <td> <label></label> <?php echo "$facHead"; ?> </label> </td>
                     </tr>
-                    <td colspan="2" style="align-self: center;"><input type="submit" value="submit"></td>
+                    <td colspan="2" style="align-self: center;"><center><input type="submit" value="Book This Room"></center></td>
                 </table>
             </fieldset>
         </form>
