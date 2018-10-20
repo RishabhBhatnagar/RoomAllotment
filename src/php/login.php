@@ -13,7 +13,7 @@
 <div id="particles-js">
     <div id="toplayer">
         <div id="container">
-            <h1 style="font-family: 'Lobster', cursive;">ROOM  <span style="color: #292c2f">ALLOTMENT</span></h1>
+            <h1 style="font-family: 'Lobster', cursive;">ROOM  <span style="color: #2A6A92">ALLOTMENT</span></h1>
         </div>
         <hr color="white">
         <div class="right">
@@ -25,12 +25,12 @@
                 <br>
                 <div class="input-group">
                     <i class="fa fa-user icon"></i>
-                    <input id="username" name=username type="text" class="form-control" name="username" placeholder="Username">
+                    <input id="username" name=username type="text" class="form-control" name="username" placeholder="Username" required>
                 </div>
                 <br>
                 <div class="input-group">
                     <i class="fa fa-key icon"></i>
-                    <input id="password" type="password" id="password" class="form-control" name="password" placeholder="Password">
+                    <input id="password" type="password" id="password" class="form-control" name="password" placeholder="Password" required>
                 </div>
                 <br>
 
@@ -46,13 +46,13 @@
                 <br>
                 <!--guest is sent to set_guest which will set the session variable-->
                 Guest login, <a href="set_guest.php" onclick="set_guest()">
-                    <font style="font-family: 'Lobster', cursive"><u>Click here.</u></font></a>
+                    <font style="font-family: 'Lobster', cursive"><u style="color: #2A6A92;"><b>Click here!</b></u></font></a>
             </font>
         </div>
-        <h2 style="font-family: 'Lobster', cursive">Welcome</h2>
+        <h2 style="font-family: 'Lobster', cursive; color: #2A6A92;"><b>Welcome</b></h2>
         <br>
         <br>
-        <p style="font-family: 'Lobster', cursive">
+        <p class="desc_login" style="font-family: 'Lobster', cursive; font-size: 18px;">
             Committees can check the availability of various rooms such as the classrooms, labs, halls, etc that they can use strictly for conducting workshops or organizing events or seminars. Along with that, committee members can also view the list of rooms booked by them for various events along with the list of bookings that have been approved by the person incharge.
         </p>
     </div>
