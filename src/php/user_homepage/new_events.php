@@ -21,14 +21,13 @@ $facHead=$query['fac_head'];
 <form name=form_block action="" method="post" id="form_block">
     <div id="snackbar"></div>  <!--Div is necessary for snackbar.-->
 
-    <input type=date id="date_picker" name=date_picker" onchange = "date_time()"><br>
+    Enter the date on which you want to book the room : <input type=date id="date_picker" name=date_picker" onchange = "date_time()"><br>
     <input type=radio name="block" id=classroom value=classroom><label for=classroom>classroom</label>
     <input type=radio name="block" id=lab value=lab><label for=lab>lab</label>
     <input type=radio name="block" id=others value=others><label for=others>others</label><br>
     <div id=list_blocks></div>
     <div id=month_view class="month_view"></div>
     <input name="submit" type="submit" id="submit" style="display:none"/>
-    <iframe id="iframe" src="new_events_1.php"></iframe>
 
 </form>
 <div>
@@ -202,17 +201,6 @@ echo "
                         c_date_arr = chosen_date.split('-');
                         document.getElementById('ne_date').innerHTML = c_date_arr[2]+'/'+c_date_arr[1]+'/'+c_date_arr[0];
                         document.getElementById('new_event_date').value = c_date_arr[2]+'/'+c_date_arr[1]+'/'+c_date_arr[0];
-                        
-                        
-                        if(document.getElementById('classroom').checked){
-                            inflate_blocks('classroom');
-                        }
-                        if(document.getElementById('lab').checked){
-                            inflate_blocks('lab');
-                        }
-                        if(document.getElementById('others').checked){
-                            inflate_blocks('others');
-                        }
                     }   
                     else{
                         if(chosen_date != '')
@@ -234,69 +222,72 @@ echo "
 	        	
 	        	function inflate_blocks(name){
                     if(name != ''){
-                        iframe = document.getElementById('iframe');
-                        //alert((iframe.src).split('?')[0]+'?date='+chosen_date+'&which_radio='+name);
-                        iframe.src = (iframe.src).split('?')[0]+'?date='+chosen_date+'&which_radio='+name;
-                        all_room_nos = {
-                            \"classroom\" : ".$_SESSION['c_r'] .", 
-                            \"lab\"       : ".$_SESSION['l_r'] .",
-                            \"others\"    : ".$_SESSION['o_r'] .",
-                        };
-                        
-                        all_room_nos_status = {
-                            \"classroom\" : ".$_SESSION['c_s'] .", 
-                            \"lab\"       : ".$_SESSION['l_s'] .",
-                            \"others\"    : ".$_SESSION['o_s'] .",
-                        };
-                        
-                        div_ele = document.getElementById(\"list_blocks\");
-                        room_nos = all_room_nos[name];
-                        room_nos_status = all_room_nos_status[name];
-                        
-                        block_length = 4;
-                        
-                        breakpoints = [3, 6, 10, 15];
-                        clear_all_fields();
-                        
-                        row_number = 0;
-                        
-                        for(i = 0; i<room_nos.length; i++){
-                            for(index in breakpoints){
-                                if(i == breakpoints[index]){
-                                    row_number += 1;
-                                    break_div = document.createElement(\"p\");
-                                    break_div.innerHTML = \"&nbsp\";
-                                    container.append(break_div);
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                               // Typical action to be performed when the document is ready:
+                               answer = ((this.responseText).split('-----')[1]).split('#####');
+                               localStorage.setItem('rno', answer[0]);
+                               localStorage.setItem('status', answer[1]);
+                               
+                               
+                               
+                               room_nos = JSON.parse(localStorage.getItem('rno'));
+                                room_nos_status = JSON.parse(localStorage.getItem('status'));
+                                
+                                date_picker = document.getElementById('date_picker');
+                                chosen_date = date_picker.value;
+                                
+                                div_ele = document.getElementById(\"list_blocks\");
+                                
+                                block_length = 4;
+                                
+                                breakpoints = [3, 6, 10, 15];
+                                clear_all_fields();
+                                row_number = 0;
+                                for(i = 0; i<room_nos.length; i++){
+                                    for(index in breakpoints){
+                                        if(i == breakpoints[index]){
+                                            row_number += 1;
+                                            break_div = document.createElement(\"p\");
+                                            break_div.innerHTML = \"&nbsp\";
+                                            container.append(break_div);
+                                        }
+                                    }
+                                    day = room_nos[i];
+                                    status = room_nos_status[i];
+                                    
+                                    if(day.length < block_length){day = \" \"+day;}
+                                    blobi = document.createElement(\"span\");
+                                    blobi.innerHTML = day;
+                                    blobi.id = \"blob\"+i;
+                                    cname = '';
+                                    conflict_possible = false;
+                                    switch (status) {
+                                        case 'a' : cname = 'single_block_a'; break;
+                                        case 'u' : cname = 'single_block_u'; break;
+                                        case 'p' : 
+                                            cname = 'single_block_p';
+                                            conflict_possible = true;
+                                            break;
+                                        case 'r' : cname = 'single_block_r'; break;
+                                    }
+                                    blobi.className = cname;
+                                    container.appendChild(blobi);
+                                    if(status != 'a') {
+                                        blobi.style.cursor = 'pointer';
+                                        document.getElementById('blob'+i).addEventListener('click', altr , false);
+                                    } else {
+                                        document.getElementById('blob'+i).addEventListener('click', cannot_book , false);
+                                    }
+                                    document.getElementById('conflict_possible').value = conflict_possible;
                                 }
                             }
-                            day = room_nos[i];
-                            status = room_nos_status[i];
-                            
-                            if(day.length < block_length){day = \" \"+day;}
-                            blobi = document.createElement(\"span\");
-                            blobi.innerHTML = day;
-                            blobi.id = \"blob\"+i;
-                            cname = '';
-                            conflict_possible = false;
-                            switch (status) {
-                                case 'a' : cname = 'single_block_a'; break;
-                                case 'u' : cname = 'single_block_u'; break;
-                                case 'p' : 
-                                    cname = 'single_block_p';
-                                    conflict_possible = true;
-                                    break;
-                                case 'r' : cname = 'single_block_r'; break;
-                            }
-                            blobi.className = cname;
-                            container.appendChild(blobi);
-                            if(status != 'a') {
-                                blobi.style.cursor = 'pointer';
-                                document.getElementById('blob'+i).addEventListener('click', altr , false);
-                            } else {
-                                document.getElementById('blob'+i).addEventListener('click', cannot_book , false);
-                            }
-                            document.getElementById('conflict_possible').value = conflict_possible;
-                        }
+                        };
+                        xhttp.open(\"GET\", 'new_events_1.php?date='+chosen_date+'&which_radio='+name, true);
+                        xhttp.send();
+                        
+                        
                     }
 				}
 				function bind_radio_listener(name){
@@ -317,21 +308,8 @@ echo "
 				}
 				
 				function load_default(radio_name){
-				    
-				    //segregate all table room by room_type.
-				    //get_table_data_query(\"select * from room\");
-				    
 				    // Bind all radio listeners to change room booked states on selection change.
 				    bind_radio_listener(radio_name);
-				    
-				    //get array of radio button / radio group.
-				    var radios = document.getElementsByName(radio_name);
-				    
-                    //set first radio button checked by default.
-                    if(document.getElementById('hide2').value != ''){
-                        radios[0].checked = \"checked\";
-                        inflate_blocks(radios[0].value);
-                    }
 				}
 				load_default(\"block\");
         	</script>
