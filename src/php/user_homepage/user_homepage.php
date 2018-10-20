@@ -16,7 +16,7 @@
             ";
         }
     ?>
-    <frameset rows="15%, *" border=0 name="parent_frame" id="parent_frame">
+    <frameset rows="16%, *" border=0 name="parent_frame" id="parent_frame">
         <frame src="header.php" style="background-color: #292c2f; opacity: 0.9">
         <frameset cols="20%, *" border="0">
             <frame src="side_navigation.php">

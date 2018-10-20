@@ -3,6 +3,7 @@
         <link rel="stylesheet" type="text/css" href="../../css/new_events.css">
         <script src="../../js/new_events.js"></script>
     </head>
+    <center style="color: #2A6A92; "><h2>New Events</h2></center>
     <?php
         include "../../data/get_data.php";
         session_start();
