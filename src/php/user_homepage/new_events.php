@@ -26,11 +26,11 @@ $facHead=$query['fac_head'];
 
     <span>Which type of <em>room</em> are you looking for??</span><br>
         <input type=radio name="block" id=classroom value=classroom>
-            <label for=classroom>classroom</label>
+            <label for=classroom>Classroom</label>
         <input type=radio name="block" id=lab value=lab>
-            <label for=lab>lab</label>
+            <label for=lab>Lab</label>
         <input type=radio name="block" id=others value=others>
-            <label for=others>others</label><br>
+            <label for=others>Others</label><br>
 
     <div id=list_blocks></div>
 
