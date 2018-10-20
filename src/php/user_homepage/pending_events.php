@@ -6,6 +6,7 @@
     <body>
         <center>
             <?php
+                echo "<center><b>Pending Events</b></center>";
                 include '../../data/get_data.php';
                 include "same_copy_paste.php";
                 session_start();
@@ -17,14 +18,14 @@
                             "select * 
                                        from event_details e,booking_detail b, user u 
                                        where e.eid=b.eid and e.uid=u.uid and 
-                                       status='p' and u.uid=" . $_SESSION["uid"] . ";"
+                                       status='p' and u.uid=" . $_SESSION["uid"] . " order by event_date,booking_time;"
                         );
                     } else{
                         dynamicQuery(
                             "select * 
                                        from event_details e,booking_detail b, user u 
                                        where e.eid=b.eid and e.uid=u.uid and 
-                                       status='p';"
+                                       status='p' order by event_date,booking_time desc;"
                         );
                     }
 
