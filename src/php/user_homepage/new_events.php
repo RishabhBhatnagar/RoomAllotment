@@ -21,7 +21,7 @@ $facHead=$query['fac_head'];
 <form name=form_block action="" method="post" id="form_block">
     <div id="snackbar"></div>  <!--Div is necessary for snackbar.-->
 
-    <input type=date id="date_picker" name=date_picker" onchange = "date_time()"><br>
+    Enter the date on which you want to book the room : <input type=date id="date_picker" name=date_picker" onchange = "date_time()"><br>
     <input type=radio name="block" id=classroom value=classroom><label for=classroom>classroom</label>
     <input type=radio name="block" id=lab value=lab><label for=lab>lab</label>
     <input type=radio name="block" id=others value=others><label for=others>others</label><br>
@@ -282,11 +282,6 @@ echo "
                                     }
                                     document.getElementById('conflict_possible').value = conflict_possible;
                                 }
-                               
-                               
-                               
-                               
-                               
                             }
                         };
                         xhttp.open(\"GET\", 'new_events_1.php?date='+chosen_date+'&which_radio='+name, true);
