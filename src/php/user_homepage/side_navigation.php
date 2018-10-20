@@ -14,22 +14,22 @@
     -->
     <div>
         <div class="side-nav" id="previous_events" style="display:none;">
-        <a href = "previous_events.php" target="main_frame" >Previous Events</a><br>
+        <a href = "previous_events.php" target="main_frame" id="previous_events_a" >Previous Events</a><br>
         </div>
         <div class="side-nav" id="pending_events" style="display:none;">
-        <a href = "pending_events.php"  target="main_frame">Pending Events</a><br>
+        <a href = "pending_events.php"  target="main_frame" id="pending_events_a">Pending Events</a><br>
         </div>
         <div class="side-nav" id="new_events" style="display:none;">
-        <a href = "new_events.php"  target="main_frame">New Events</a><br>
+        <a href = "new_events.php"  target="main_frame" id="new_events_a">New Events</a><br>
         </div>
         <div class="side-nav" id="rejected_events" style="display:none;" >
-        <a href = "rejected.php"  target="main_frame">Rejected Events</a><br>
+        <a href = "rejected.php"  target="main_frame" id="rejected_events_a">Rejected Events</a><br>
         </div>
         <div class="side-nav" id="accepted_events" style="display:none;">
-        <a href = "acepted.php"  target="main_frame">Accepted Events</a><br>
+        <a href = "acepted.php"  target="main_frame" id="accepted_events_a">Accepted Events</a><br>
         </div>
         <div class="side-nav" id="feedback_form" style="display:none;">
-        <a href = "feedback.php" target="main_frame">Feedback Form</a><br>
+        <a href = "feedback.php" target="main_frame" id="feedback_form_a">Feedback Form</a><br>
         </div>
 
         <?php
@@ -73,11 +73,11 @@
                 $who = 'g';
             }
 
-                if(in_array($who, array("a" ))){
-                    echo "<script>document.getElementById(\"pending_events\").click();</script>";
+                if($who == "a"){
+                    echo "<script>document.getElementById(\"pending_events_a\").click();</script>";
                 }
                 if($who == 'u'){
-                    echo "<script>document.getElementById(\"new_events\").click();</script>";
+                    echo "<script>document.getElementById(\"new_events_a\").click();</script>";
                 }
 
                 $display_bars = $bars[$who];  //select elements to unhide based on user type.
