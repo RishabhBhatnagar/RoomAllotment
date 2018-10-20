@@ -52,9 +52,9 @@
 
     <?php
         $bars = array(
-            "a" => array("pending_events", "acepted", "rejected_events", "accepted_events"),
-            "u" => array("previous_events", "pending_events", "new_events"),
-            "g" => array("comm_name")
+            "a" => array("pending_events", "acepted", "rejected_events", "accepted_events", "feedback_form"),
+            "u" => array("previous_events", "pending_events", "new_events", "feedback_form"),
+            "g" => array("comm_name", "feedback_form")
         );
 
         if(isset($_SESSION["uid"])){
