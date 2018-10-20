@@ -6,7 +6,7 @@
     const db_pswd = "";
     const json_file_name = "all_tables_json";     //This is name of the file in which all data will be stored.
     	    
-    $table_names = array("event_details", "user", "room");      // names of all table.
+    $table_names = array("event_detail", "user", "room");      // names of all table.
     $table_jsons = array();                                     // array where jsons of all tables will be stored.
     
     function get_json_data($qry){

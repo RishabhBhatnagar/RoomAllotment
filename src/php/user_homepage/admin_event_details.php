@@ -31,7 +31,7 @@
 		$id = $_POST["event_id"];
 		$eventDetails=get_table_data_query("
 			select u.comm_name, e.title, b.event_date, e.description, e.room_no, b.start_time, b.end_time, e.tags, e.type, b.booking_time, u.fac_head, status  
-			from event_details e,booking_detail b, user u 
+			from event_detail e,booking_detail b, user u 
 			    where e.eid=b.eid and e.uid=u.uid and e.eid=".$_REQUEST["event_id"].";"
 		)[0];
 		

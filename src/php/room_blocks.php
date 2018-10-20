@@ -174,7 +174,7 @@
         	print_r(
 	        	get_table_data_query("
 		        	SELECT MONTH(end_date)
-		        	FROM event_details
+		        	FROM event_detail
 		        	WHERE start_date = str_to_date('"."10/04/2018"."', '%m/%d/%Y')
 		        		and is_completed = false
 		        		and is_accepted;"

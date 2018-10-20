@@ -8,7 +8,7 @@
     if(isset($_SESSION["uid"])){
         dynamicQuery("
                 select * 
-                from event_details e,booking_detail b, user u 
+                from event_detail e,booking_detail b, user u 
                 where e.eid=b.eid and e.uid=u.uid  and status = 'a'
                 and b.event_date < CURRENT_DATE() and  u.uid = ".$_SESSION["uid"].";
                 "

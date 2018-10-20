@@ -31,7 +31,7 @@ include "../../data/get_data.php";
         $table = get_table_data_query(
             sprintf(
                 "SELECT r.room_no, status
-                        FROM room r, event_details e, booking_detail b
+                        FROM room r, event_detail e, booking_detail b
                         WHERE e.eid = b.eid and
                         r.room_no = e.room_no and e.room_no = b.room_no and
                         event_date = '%s' AND room_type = '%s';", $_REQUEST["date"], $room_type)

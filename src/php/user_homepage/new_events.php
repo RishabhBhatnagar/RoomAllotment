@@ -145,7 +145,7 @@
         $table = get_table_data_query(
             sprintf(
                 "SELECT r.room_no, status
-                                        FROM room r, event_details e 
+                                        FROM room r, event_detail e 
                                         WHERE room_type = '%s' 
                                               and r.room_no = e.room_no", $room_type
             )
@@ -250,6 +250,9 @@
                         remove_new_event_form();
                         document.getElementById('ne_room_no').value = event.srcElement.innerHTML;
                         document.getElementById('new_event').style.display = 'block';
+                        
+                        location = \"#new_event\";
+      
                     }
                     
                     function cannot_book(){
