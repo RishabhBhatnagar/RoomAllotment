@@ -1,27 +1,49 @@
-/* Style the header with a grey background and some padding */
-.header {
-  overflow: hidden;
-/* Style the header links */
-.header a {
-  float: left;
+h2{
+  font-family:'Lobster', cursive;
   color: #ffffff;
-  text-align: center;
-  padding: 10px;
-  font-size: 14px;
-  line-height: 14px;
-  border-radius: 5px;
-  font-family: monospace;
+  font-size: 34px;
+  align-content: left;
+  float: left;
 }
-
-/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
 
 .span-text{
   color: #2A6A92;
+ 
 }
 
-
-
-/* Float the link section to the right */
-.header-right {
+.header-right{
   float: right;
+  vertical-align: middle;
+  margin-top: 30px;
 }
+
+.type-of-user{
+  
+  text-decoration: none;
+  font-family:'Lobster', cursive;
+  padding: 10px;
+  color: #ffffff;
+
+}
+
+.log-out{
+  vertical-align: middle;
+  text-decoration: none;
+  font-family:'Lobster', cursive;
+  color: #ffffff;
+  padding: 10px;
+}
+
+
+
+.log-out :hover{
+  background-color: #2A6A92 ;
+}
+
+.span_tou_1 {
+  background-color: #2A6A92 ; 
+  padding: 10px;
+  border-radius: 10px;
+}
+
+

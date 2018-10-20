@@ -41,7 +41,7 @@
 
 	<?php 
 		if (count($eventDetails) > 0){
-			echo "<form action='../update.php' method=post>
+			echo "<center> <form action='../update.php' method=post>
 			    <table >";
 			foreach ($eventDetails as $key => $value) {
 				echo "
@@ -69,7 +69,8 @@
 					<td colspan=\"2\"><input type=\"button\" value=\"BACK\" onclick=\"window.history.back()\"></td>
 				</tr>
 			</table>
-			</form>";
+			</form>
+			</center>";
 		}
 	?>
 		</table>
