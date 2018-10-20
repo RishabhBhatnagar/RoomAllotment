@@ -87,11 +87,11 @@
                     </tr>
                     <tr>
                         <th>Start Time:</th>
-                        <td><input type="time" name="ne_start_time" id="ne_start_time" min="06:00" max="19:00" value="12:12"required></td>
+                        <td><input type="time" name="ne_start_time" id="ne_start_time" min="06:00" max="19:00" required></td>
                     </tr>
                     <tr>
                         <th>End Time:</th>
-                        <td><input type="time" name="ne_end_time" id="ne_end_time" required min="07:00" max="20:00" value="13:13"></td>
+                        <td><input type="time" name="ne_end_time" id="ne_end_time" required min="07:00" max="20:00"></td>
                     </tr>
 
                     <tr>
