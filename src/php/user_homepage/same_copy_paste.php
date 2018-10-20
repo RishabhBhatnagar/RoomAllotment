@@ -9,7 +9,7 @@
 				}
 				
 				$noOfCards=sizeof($cards);
-				print("<table>");
+				print("<center> <table>");
 				
 				$cardsleft = $noOfCards;
 				while ($cardsleft > 0) {
@@ -31,7 +31,7 @@
 					}
 					print("</tr>");
 					}
-				print("</table>");
+				print("</table> </center>");
 
 			}//dynamicQuery
 
