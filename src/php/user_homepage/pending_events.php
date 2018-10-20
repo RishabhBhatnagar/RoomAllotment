@@ -4,6 +4,7 @@
         <link rel="stylesheet" type="text/css" href="../../css/admin_page.css">
     </head>
     <body>
+    <center style="color: #2A6A92; "><h2>Pending Events</h2></center>
         <center>
             <?php
                 include '../../data/get_data.php';

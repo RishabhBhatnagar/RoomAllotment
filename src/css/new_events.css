@@ -4,7 +4,7 @@
     background: #00fe00;
     margin: 5;
     padding:15;
-    /*    float: left; */
+    font-family:'Lobster', cursive;
 }
 .single_block_a{
     height: 30;
@@ -12,7 +12,7 @@
     background: red;
     margin: 5;
     padding:15;
-    /*    float: left; */
+    font-family:'Lobster', cursive;
 }
 .single_block_p{
     height: 30;
@@ -20,12 +20,18 @@
     background: #ffff00;
     margin: 5;
     padding:15;
-    /*    float: left; */
+    font-family:'Lobster', cursive;
 }
+
 .break_div{
     white-space: pre;
 }
 
 .month_view{
     margin-top: 30px;
+}
+
+.ne_form{
+    padding: 10px;
+    margin: 10px;
 }
