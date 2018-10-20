@@ -13,16 +13,37 @@ body{
 	margin-top: 15;
 	font-family: 'Lobster', cursive;
 	font-size: 22px;
-	    
+	border-radius: 5px;	    
+}
+
+.side-nav:active {
+    color: blue;
 }
 
 a{
 	text-decoration:none;
 	text-shadow: 5px;
 	color: #ffffff;
-	font-stretch:expanded; 
 }
 
 .side-nav:hover {
+    background-color: #2A6A92;
+}
+
+
+
+
+/*GUEST STYLING*/
+.guest_nav{
+	align-content: center;
+	text-align: center;
+	color: #ffffff;
+	font-family: 'Lobster', cursive;
+	border-radius: 5px;
+	margin: 5px;
+	font-size: 18px;
+}
+
+.guest_nav:hover {
     background-color: #2A6A92;
 }

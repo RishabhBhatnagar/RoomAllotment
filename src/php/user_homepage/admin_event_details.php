@@ -1,11 +1,15 @@
 <html>
 	<head>
 		<style type="text/css">
-			table,tr,td,th {
+			table,tr,td,th{
 			border: 1px solid black;
 			text-align: center;
 			width: 800px;
 			height: 40px;
+			font-family:'Lobster', cursive;
+		}
+		input[type="button"], input[type="submit"]{
+		    font-family:'Lobster', cursive;
 		}
 		</style>
 	</head>

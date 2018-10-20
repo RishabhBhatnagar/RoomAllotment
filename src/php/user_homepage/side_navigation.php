@@ -37,8 +37,8 @@
             $committees = get_table_data_query("select distinct comm_name from user where comm_name != 'admin'");
             for($i = 0; $i < count($committees); $i++){
                 echo "
-                    <div id=\"div_".$committees[$i]["comm_name"]."\" style=\"display:none\">
-                        <input type=checkbox  value=\"".$committees[$i]["comm_name"]."\">".$committees[$i]["comm_name"]."<br>
+                    <div  id=\"div_".$committees[$i]["comm_name"]."\" style=\"display:none\">
+                        <input type=checkbox  value=\"".$committees[$i]["comm_name"]."\" style='color:white;'>".$committees[$i]["comm_name"]."<br>
                     </div>
                 ";
             }
@@ -85,13 +85,15 @@
 
                     if($bar == "comm_name"){
                         //print all committee names' radio.
-                        echo "<form action=\"\" method=\"post\">";
+                        echo "<form action=\"\" method=\"post\"> <br>"; //<br> added purposely for styling
                         for($i = 0; $i < count($committees); $i++){
                             echo sprintf("
-                                <label  for=\"%s\" ;\">
-                                    <div id=\"div_%s\" style=\"display:block\">
+                                <label for=\"%s\" ;\">
+                                    <div class='guest_nav' id=\"div_%s\" style=\"display:block\">
+                                        <center>
                                         <input type=radio id=\"%s\" value=\"%s\" onchange=\"guest_committee_select(this)\" name=random_name>%s<br>
                                         <a method=\"get\" href=\"committee_events.php?c_name=".$committees[$i]["comm_name"]."\" target=\"main_frame\" id=a_%s name=a_%s style=\"display:block\"></a><br>
+                                        </center>
                                     </div>
                                 </label>
                                 ", $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"]);
