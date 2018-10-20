@@ -19,16 +19,24 @@ $commName=$query['comm_name'];
 $facHead=$query['fac_head'];
 ?>
 <form name=form_block action="" method="post" id="form_block">
+
     <div id="snackbar"></div>  <!--Div is necessary for snackbar.-->
 
-    Enter the date on which you want to book the room : <input type=date id="date_picker" name=date_picker" onchange = "date_time()"><br>
-    <input type=radio name="block" id=classroom value=classroom><label for=classroom>classroom</label>
-    <input type=radio name="block" id=lab value=lab><label for=lab>lab</label>
-    <input type=radio name="block" id=others value=others><label for=others>others</label><br>
-    <div id=list_blocks></div>
-    <div id=month_view class="month_view"></div>
-    <input name="submit" type="submit" id="submit" style="display:none"/>
+    <span>Enter the date on which you want to book the room : </span><input type=date id="date_picker" name=date_picker" onchange = "date_time()"><br><br>
 
+    <span>Which type of <em>room</em> are you looking for??</span><br>
+        <input type=radio name="block" id=classroom value=classroom>
+            <label for=classroom>classroom</label>
+        <input type=radio name="block" id=lab value=lab>
+            <label for=lab>lab</label>
+        <input type=radio name="block" id=others value=others>
+            <label for=others>others</label><br>
+
+    <div id=list_blocks></div>
+
+    <div id=month_view class="month_view"></div>
+
+    <input name="submit" type="submit" id="submit" style="display:none"/>
 </form>
 <div>
     <form name="new_event" action="new_events_2.php" id="new_event" onsubmit="return validate_form()" method="post" style="display: none">
@@ -201,7 +209,18 @@ echo "
                         c_date_arr = chosen_date.split('-');
                         document.getElementById('ne_date').innerHTML = c_date_arr[2]+'/'+c_date_arr[1]+'/'+c_date_arr[0];
                         document.getElementById('new_event_date').value = c_date_arr[2]+'/'+c_date_arr[1]+'/'+c_date_arr[0];
-                    }   
+                        
+                        if(document.getElementById('classroom').checked){
+                            inflate_blocks('classroom');
+                        }
+                        if(document.getElementById('lab').checked){
+                            inflate_blocks('lab');
+                        }
+                        if(document.getElementById('others').checked){
+                            inflate_blocks('others');
+                        }
+                        
+                    }
                     else{
                         if(chosen_date != '')
                             inflate_blocks('');   //passing null to remove all views and inflate nothing.
