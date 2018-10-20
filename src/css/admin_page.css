@@ -1,7 +1,7 @@
 .indvCards {
   width: 251px;
   border: 1px solid #efefef;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 25px rgba(41, 44, 47, 0.4); /*hex value for color , last value is opacity*/
   float: left;
   margin: 10px;
   align-content: center;

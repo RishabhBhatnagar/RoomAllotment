@@ -11,6 +11,16 @@
 		input[type="button"], input[type="submit"]{
 		    font-family:'Lobster', cursive;
 		}
+		table{ 
+			box-shadow: 0 15px 25px rgba(41, 44, 47, 0.4);
+		}
+		th{
+			color: #292c2f;
+		}
+		tr:nth-child(odd){
+			background-color: #cad1d0 ;
+		}
+
 		</style>
 	</head>
 <body>
