@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="../../css/snackbar.css">
 <?php
 /**
  * Created by PhpStorm.

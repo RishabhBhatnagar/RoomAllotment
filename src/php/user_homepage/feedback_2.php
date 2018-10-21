@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="../../css/snackbar.css">
+
 <?php 
 
 include "../../data/get_data.php";
@@ -11,10 +13,13 @@ $quest4=$_REQUEST['q4'];
 //insertion in feedback form
 get_table_data_query("insert into feedback values('$quest1', '$quest2', '$quest3', '$quest4');");
 
-show_snackbar("Thank you for the Response!!!");
+//show_snackbar("Thank you for the Response!!!");
     echo "
     <script>
         window.history.back();
+        window.history.back();
     </script>";
+
+    show_snackbar("Thank you for the Response!!!");
 
 ?>
