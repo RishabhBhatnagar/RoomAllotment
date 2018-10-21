@@ -31,7 +31,7 @@ include "../../data/get_data.php";
         $table = get_table_data_query(
             sprintf(
                 "SELECT r.room_no, status
-                        FROM room r, event_details e, booking_detail b
+                        FROM room r, event_detail e, booking_detail b
                         WHERE e.eid = b.eid and
                         r.room_no = e.room_no and e.room_no = b.room_no and
                         event_date = '%s' AND room_type = '%s';", $_REQUEST["date"], $room_type)
@@ -52,6 +52,15 @@ include "../../data/get_data.php";
         }
         return get_list($status);
     }
+    $d1 = "-----";
+
+    function format($c){
+        $d2 = "#####";
+        $rno = $_SESSION[$c.'_r'];
+        $status = $_SESSION[$c.'_s'];
+        return $rno.$d2.$status;
+    }
+
     if(isset($_REQUEST["date"])) {
         $_SESSION['c_r'] = get_room_numbers("c");
         $_SESSION['l_r'] = get_room_numbers("l");
@@ -60,7 +69,8 @@ include "../../data/get_data.php";
         $_SESSION['c_s'] = get_room_numbers_status("c");
         $_SESSION['l_s'] = get_room_numbers_status("l");
         $_SESSION['o_s'] = get_room_numbers_status("o");
-        echo $_REQUEST["date"];
+
+        echo $d1;
+        echo format(strtolower($_REQUEST["which_radio"][0]));
     }
-    echo "sdlkdv";
 ?>

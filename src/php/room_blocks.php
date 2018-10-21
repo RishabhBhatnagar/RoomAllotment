@@ -51,6 +51,32 @@
 
 	        	
 	        	function inflate_blocks(name){
+                    
+    
+    
+    
+                    
+    
+    
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                           alert(this.responseText);
+                        }
+                    };
+                    xhttp.open(\"GET\", \"user_homepage/new_events_1.php\", true);
+                    xhttp.send();
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 	        		all_room_nos = {
 				        \"classroom\" : ".get_room_numbers("classroom").", 
 				        \"lab\"       : ".get_room_numbers("lab").",
@@ -148,7 +174,7 @@
         	print_r(
 	        	get_table_data_query("
 		        	SELECT MONTH(end_date)
-		        	FROM event_details
+		        	FROM event_detail
 		        	WHERE start_date = str_to_date('"."10/04/2018"."', '%m/%d/%Y')
 		        		and is_completed = false
 		        		and is_accepted;"
@@ -168,3 +194,18 @@
         }
     ?>
 </html>
+<script>
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            // Typical action to be performed when the document is ready:
+            alert(xhttp.responseText);
+        }
+    };
+    xhttp.open("GET", "./user_", true);
+    xhttp.send();
+</script>
+
+<?php
+    include "."
+?>

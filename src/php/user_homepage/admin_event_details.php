@@ -1,12 +1,26 @@
 <html>
 	<head>
 		<style type="text/css">
-			table,tr,td,th {
+			table,tr,td,th{
 			border: 1px solid black;
 			text-align: center;
 			width: 800px;
 			height: 40px;
+			font-family:'Lobster', cursive;
 		}
+		input[type="button"], input[type="submit"]{
+		    font-family:'Lobster', cursive;
+		}
+		table{ 
+			box-shadow: 0 15px 25px rgba(41, 44, 47, 0.4);
+		}
+		th{
+			color: #292c2f;
+		}
+		tr:nth-child(odd){
+			background-color: #cad1d0 ;
+		}
+
 		</style>
 	</head>
 <body>
@@ -17,7 +31,7 @@
 		$id = $_POST["event_id"];
 		$eventDetails=get_table_data_query("
 			select u.comm_name, e.title, b.event_date, e.description, e.room_no, b.start_time, b.end_time, e.tags, e.type, b.booking_time, u.fac_head, status  
-			from event_details e,booking_detail b, user u 
+			from event_detail e,booking_detail b, user u 
 			    where e.eid=b.eid and e.uid=u.uid and e.eid=".$_REQUEST["event_id"].";"
 		)[0];
 		
@@ -41,7 +55,7 @@
 
 	<?php 
 		if (count($eventDetails) > 0){
-			echo "<form action='../update.php' method=post>
+			echo "<center> <form action='../update.php' method=post>
 			    <table >";
 			foreach ($eventDetails as $key => $value) {
 				echo "
@@ -69,7 +83,8 @@
 					<td colspan=\"2\"><input type=\"button\" value=\"BACK\" onclick=\"window.history.back()\"></td>
 				</tr>
 			</table>
-			</form>";
+			</form>
+			</center>";
 		}
 	?>
 		</table>

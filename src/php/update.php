@@ -2,10 +2,10 @@
     include "../data/get_data.php";
     $query = "";
     if(isset($_POST["accept"])){
-    	$query = "update event_details set status='a' where eid=".$_POST["hide"].";";
+    	$query = "update event_detail set status='a' where eid=".$_POST["hide"].";";
     }
     if(isset($_POST["reject"])){
-    	$query = "update event_details set status='r' where eid=".$_POST["hide"].";";
+    	$query = "update event_detail set status='r' where eid=".$_POST["hide"].";";
     }
     session_start();
     $_SESSION["query"] = $query;

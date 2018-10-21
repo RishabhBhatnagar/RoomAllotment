@@ -1,13 +1,6 @@
 <html>
 <head>
-    <style>
-            body{
-                width:90%;
-                height:95%;
-                border:6px outset orange;
-                background:#ffffff
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../../css/side_navigation.css">
 </head>
 <body>
 <?php
@@ -20,20 +13,35 @@
         with display none for all in (user, admin, guest).
     -->
     <div>
-        <a href = "previous_events.php" target="main_frame"  id = "previous_events"  style="display:none; background-color: #00e676">Previous Events</a><br>
-        <a href = "pending_events.php"  target="main_frame"  id = "pending_events"   style="display:none; background-color: #00e676">Pending Events </a><br>
-        <a href = "new_events.php"      target="main_frame"  id = "new_events"       style="display:none; background-color: #00e676">New Events     </a><br>
-        <a href = "rejected.php"        target="main_frame"  id = "rejected_events"  style="display:none; background-color: #00e676">Rejected Events</a><br>
-        <a href = "acepted.php"         target="main_frame"  id = "accepted_events"  style="display:none; background-color: #00e676">Accepted Events</a><br>
-        <a href = "feedback.php"        target="main_frame"  id = "feedback_form"    style="display:none; background-color: #00e676">Feedback Form</a><br>
+        <div class="side-nav" id="previous_events" style="display:none;">
+        <a href = "previous_events.php" target="main_frame" id="previous_events_a" >Previous Events</a><br>
+        </div>
+        <div class="side-nav" id="upcoming_events" style="display:none;">
+            <a href = "upcoming_events.php" target="main_frame" id="upcoming_events_a" >Upcoming Events</a><br>
+        </div>
+        <div class="side-nav" id="pending_events" style="display:none;">
+        <a href = "pending_events.php"  target="main_frame" id="pending_events_a">Pending Events</a><br>
+        </div>
+        <div class="side-nav" id="new_events" style="display:none;">
+        <a href = "new_events.php"  target="main_frame" id="new_events_a">New Events</a><br>
+        </div>
+        <div class="side-nav" id="rejected_events" style="display:none;" >
+        <a href = "rejected.php"  target="main_frame" id="rejected_events_a">Rejected Events</a><br>
+        </div>
+        <div class="side-nav" id="accepted_events" style="display:none;">
+        <a href = "acepted.php"  target="main_frame" id="accepted_events_a">Accepted Events</a><br>
+        </div>
+        <div class="side-nav" id="feedback_form" style="display:none;">
+        <a href = "feedback.php" target="main_frame" id="feedback_form_a">Feedback Form</a><br>
+        </div>
 
         <?php
             //display all the committee radio button dynamically.
             $committees = get_table_data_query("select distinct comm_name from user where comm_name != 'admin'");
             for($i = 0; $i < count($committees); $i++){
                 echo "
-                    <div id=\"div_".$committees[$i]["comm_name"]."\" style=\"display:none\">
-                        <input type=checkbox  value=\"".$committees[$i]["comm_name"]."\">".$committees[$i]["comm_name"]."<br>
+                    <div  id=\"div_".$committees[$i]["comm_name"]."\" style=\"display:none\">
+                        <input type=checkbox  value=\"".$committees[$i]["comm_name"]."\" style='color:white;'>".$committees[$i]["comm_name"]."<br>
                     </div>
                 ";
             }
@@ -52,9 +60,9 @@
 
     <?php
         $bars = array(
-            "a" => array("pending_events", "acepted", "rejected_events", "accepted_events"),
-            "u" => array("previous_events", "pending_events", "new_events"),
-            "g" => array("comm_name")
+            "a" => array("pending_events", "acepted", "rejected_events", "accepted_events", "feedback_form"),
+            "u" => array("previous_events", "pending_events", "upcoming_events", "new_events", "feedback_form"),
+            "g" => array("comm_name", "feedback_form")
         );
 
         if(isset($_SESSION["uid"])){
@@ -68,11 +76,11 @@
                 $who = 'g';
             }
 
-                if(in_array($who, array("a" ))){
-                    echo "<script>document.getElementById(\"pending_events\").click();</script>";
+                if($who == "a"){
+                    echo "<script>document.getElementById(\"pending_events_a\").click();</script>";
                 }
                 if($who == 'u'){
-                    echo "<script>document.getElementById(\"new_events\").click();</script>";
+                    echo "<script>document.getElementById(\"new_events_a\").click();</script>";
                 }
 
                 $display_bars = $bars[$who];  //select elements to unhide based on user type.
@@ -80,13 +88,15 @@
 
                     if($bar == "comm_name"){
                         //print all committee names' radio.
-                        echo "<form action=\"\" method=\"post\">";
+                        echo "<form action=\"\" method=\"post\"> <br>"; //<br> added purposely for styling
                         for($i = 0; $i < count($committees); $i++){
                             echo sprintf("
-                                <label  for=\"%s\" ;\">
-                                    <div id=\"div_%s\" style=\"display:block\">
+                                <label for=\"%s\" ;\">
+                                    <div class='guest_nav' id=\"div_%s\" style=\"display:block\">
+                                        <center>
                                         <input type=radio id=\"%s\" value=\"%s\" onchange=\"guest_committee_select(this)\" name=random_name>%s<br>
                                         <a method=\"get\" href=\"committee_events.php?c_name=".$committees[$i]["comm_name"]."\" target=\"main_frame\" id=a_%s name=a_%s style=\"display:block\"></a><br>
+                                        </center>
                                     </div>
                                 </label>
                                 ", $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"], $committees[$i]["comm_name"]);

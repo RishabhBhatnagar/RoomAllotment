@@ -4,6 +4,7 @@
         <link rel="stylesheet" type="text/css" href="../../css/admin_page.css">
     </head>
     <body>
+    <center style="color: #2A6A92; font-family: 'Lobster', cursive;"><h2>Pending Events</h2></center>
         <center>
             <?php
                 include '../../data/get_data.php';
@@ -15,16 +16,16 @@
                     if($type_of_user != 'a') {
                         dynamicQuery(
                             "select * 
-                                       from event_details e,booking_detail b, user u 
+                                       from event_detail e,booking_detail b, user u 
                                        where e.eid=b.eid and e.uid=u.uid and 
-                                       status='p' and u.uid=" . $_SESSION["uid"] . ";"
+                                       status='p' and u.uid=" . $_SESSION["uid"] . " order by event_date,booking_time;"
                         );
                     } else{
                         dynamicQuery(
                             "select * 
-                                       from event_details e,booking_detail b, user u 
+                                       from event_detail e,booking_detail b, user u 
                                        where e.eid=b.eid and e.uid=u.uid and 
-                                       status='p';"
+                                       status='p' order by event_date,booking_time desc;"
                         );
                     }
 

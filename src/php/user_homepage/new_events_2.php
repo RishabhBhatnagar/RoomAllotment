@@ -25,10 +25,10 @@
 
     //echo $_REQUEST['conflict_possible'];
 
-    //event_details
-    get_table_data_query("insert into event_details values (NULL, '$ne_title', '$ne_desc', '$ne_tags', '$ne_type', 'p', ".$_SESSION['uid'].", '$ne_room_no')");
+    //event_detail
+    get_table_data_query("insert into event_detail values (NULL, '$ne_title', '$ne_desc', '$ne_tags', '$ne_type', 'p', ".$_SESSION['uid'].", '$ne_room_no')");
 
-    $a = get_table_data_query("select eid from event_details where title = '$ne_title' and description = '$ne_desc';");
+    $a = get_table_data_query("select eid from event_detail where title = '$ne_title' and description = '$ne_desc';");
     //booking_details
     get_table_data_query("insert into booking_detail values (".$a[0]['eid'].", '$ne_room_no', '$ne_start_time', '$ne_end_time', '$ne_date', LOCALTIMESTAMP)");
 

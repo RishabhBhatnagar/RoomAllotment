@@ -12,7 +12,7 @@
          if($checked == "true"){
 			dynamicQuery("
 			select * 
-			from event_details e,booking_detail b, user u 
+			from event_detail e,booking_detail b, user u 
 			where e.eid=b.eid and e.uid=u.uid and u.comm_name = '$committee_name' and status='a';");
                                 
          }
