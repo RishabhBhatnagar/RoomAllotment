@@ -8,7 +8,6 @@
 <body>
 <?php
     session_start();
-    session_unset();    // for disabling direct traversal to any page when user/admin forgot to logout.
 ?>
 <div id="particles-js">
     <div id="toplayer">

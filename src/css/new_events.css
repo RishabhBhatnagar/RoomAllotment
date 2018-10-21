@@ -35,3 +35,6 @@
     padding: 10px;
     margin: 10px;
 }
+span, table, tr, td{
+    font-family: 'Lobster', cursive;
+}

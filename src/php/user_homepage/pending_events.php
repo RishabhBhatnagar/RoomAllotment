@@ -7,7 +7,6 @@
     <center style="color: #2A6A92; "><h2>Pending Events</h2></center>
         <center>
             <?php
-                echo "<center><b>Pending Events</b></center>";
                 include '../../data/get_data.php';
                 include "same_copy_paste.php";
                 session_start();

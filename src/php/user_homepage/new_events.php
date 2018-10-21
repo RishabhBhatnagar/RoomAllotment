@@ -7,14 +7,6 @@
     <?php
         include "../../data/get_data.php";
         session_start();
-        $_SESSION['c_r'] = get_room_numbers("c");
-        $_SESSION['l_r'] = get_room_numbers("l");
-        $_SESSION['o_r'] = get_room_numbers("o");
-
-        $_SESSION['c_s'] = get_room_numbers_status("c");
-        $_SESSION['l_s'] = get_room_numbers_status("l");
-        $_SESSION['o_s'] = get_room_numbers_status("o");
-
         $query = get_table_data_query("select * from user where uid =" .$_SESSION["uid"].";")[0];
         $commName=$query['comm_name'];
         $facHead=$query['fac_head'];
@@ -23,15 +15,15 @@
 
         <div id="snackbar"></div>  <!--Div is necessary for snackbar.-->
 
-        <span>Enter the date on which you want to book the room : </span><input type=date id="date_picker" name=date_picker" onchange = "date_time()"><br><br>
+        <span style="font-family: 'Lobster', cursive;">Enter the date on which you want to book the room : </span><input type=date id="date_picker" name=date_picker" onchange = "date_time()"><br><br>
 
-        <span style="margin: 12px">Which type of <em>room</em> are you looking for??</span><br>
+        <span style="margin: 12px; font-family: 'Lobster', cursive;">Which type of <em>room</em> are you looking for??</span><br>
             <input type=radio name="block" id=classroom value=classroom>
-                <label for=classroom>Classroom</label>
+                <label for=classroom style="font-family: 'Lobster', cursive;">Classroom</label>
             <input type=radio name="block" id=lab value=lab>
-                <label for=lab>Lab</label>
+                <label for=lab style="font-family: 'Lobster', cursive;">Lab</label>
             <input type=radio name="block" id=others value=others>
-                <label for=others>Others</label><br>
+                <label for=others style="font-family: 'Lobster', cursive;">Others</label><br>
 
         <div id=list_blocks></div>
 
@@ -39,18 +31,18 @@
 
         <input name="submit" type="submit" id="submit" style="display:none"/>
 
-        <table border="3px" style="border-collapse: collapse; margin-top: 30px;">
-            <th colspan="2">Legends</th>
+        <table border="3px" style="border-collapse: collapse; margin-top: 30px; font-family: 'Lobster', cursive;">
+            <th colspan="2" style="font-family: 'Lobster', cursive;">Legends</th>
             <tr>
-                <td><h1 style="background-color: red; width: 20px; height:20px; margin: 10px"></h1></td>
+                <td><h1 style="background-color: red; width: 20px; height:20px; margin: 10px; font-family: 'Lobster', cursive;"></h1></td>
                 <td>Room Not Available</td>
             </tr>
             <tr>
-                <td><h1 style="background-color: #ffff00; width: 20px; height:20px; margin: 10px"></h1></td>
+                <td><h1 style="background-color: #ffff00; width: 20px; height:20px; margin: 10px; font-family: 'Lobster', cursive;"></h1></td>
                 <td>An event is already proposed</td>
             </tr>
             <tr>
-                <td><h1 style="background-color: #00fe00; width: 20px; height:20px; margin: 10px"></h1></td>
+                <td><h1 style="background-color: #00fe00; width: 20px; height:20px; margin: 10px; font-family: 'Lobster', cursive;"></h1></td>
                 <td>Unallocated room</td>
             </tr>
         </table>
