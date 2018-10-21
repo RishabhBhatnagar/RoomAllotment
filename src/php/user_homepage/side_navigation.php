@@ -16,6 +16,9 @@
         <div class="side-nav" id="previous_events" style="display:none;">
         <a href = "previous_events.php" target="main_frame" id="previous_events_a" >Previous Events</a><br>
         </div>
+        <div class="side-nav" id="upcoming_events" style="display:none;">
+            <a href = "upcoming_events.php" target="main_frame" id="upcoming_events_a" >Upcoming Events</a><br>
+        </div>
         <div class="side-nav" id="pending_events" style="display:none;">
         <a href = "pending_events.php"  target="main_frame" id="pending_events_a">Pending Events</a><br>
         </div>
@@ -58,7 +61,7 @@
     <?php
         $bars = array(
             "a" => array("pending_events", "acepted", "rejected_events", "accepted_events", "feedback_form"),
-            "u" => array("previous_events", "pending_events", "new_events", "feedback_form"),
+            "u" => array("previous_events", "pending_events", "upcoming_events", "new_events", "feedback_form"),
             "g" => array("comm_name", "feedback_form")
         );
 
