@@ -7,7 +7,7 @@
 */
 -->
 <center style="color: #2A6A92; "><h2>Feedback Form</h2></center>
-<form action="" method="POST" style="font-family: 'Lobster', cursive;" >
+<form name="feedback" action="feedback_2.php" method="POST" style="font-family: 'Lobster', cursive;" >
 	<fieldset>
 		<legend>Feedback Form</legend>
 		<p style="color: #2A6A92;">Please provide your feedback below:-</p>
