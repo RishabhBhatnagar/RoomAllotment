@@ -49,7 +49,7 @@
 
     </form>
     <div>
-        <form name="new_event" action="new_events_2.php" id="new_event" onsubmit="return validate_form()" method="post" style="display: none">
+        <form name="new_event" action="new_events_2.php" id="new_event" onsubmit="return validate_form()" method="post" style="display: none; font-family: 'Lobster', cursive;">
             <fieldset>
                 <legend>New Event</legend>
                 <table>

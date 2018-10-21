@@ -17,7 +17,7 @@
         <hr color="white">
         <div class="right">
             <form action="../php/registration_page.php" method="post">
-                <font>
+                <font style="font-family: 'Lobster', cursive;">
                     SIGN IN:
                 </font>
                 <br>
@@ -38,7 +38,7 @@
                     will validate user from dataBase by checking username and hashed password
                     if the user is not validated, control comes back to this page.
                 -->
-                <button type="submit" class="btn-primary">Submit</button>
+                <button type="submit" class="btn-primary" style="font-family: 'Lobster', cursive;">Submit</button>
                 <br>
             </form>
             <font style="font-family: 'Lobster', cursive">

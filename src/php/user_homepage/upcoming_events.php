@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="../../css/admin_page.css">
 <center style="color: #2A6A92; font-family: 'Lobster', cursive;"><h2>Upcoming Events</h2></center>
+<center>
 <?php
     require "../../data/get_data.php";
     require "same_copy_paste.php";
@@ -15,3 +16,4 @@
         );
     }
 ?>
+</center>
