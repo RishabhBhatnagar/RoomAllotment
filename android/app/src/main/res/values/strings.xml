@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">RoomAllotment</string>
+
+    <string name="password_prompt">Enter the password</string>
+    <string name="uname_prompt">Enter the username</string>
+
+    <string name="not_authenticated">You are not authennticated</string>
+    <string name="fill_fields">Please fill the fields!!</string>
 </resources>
