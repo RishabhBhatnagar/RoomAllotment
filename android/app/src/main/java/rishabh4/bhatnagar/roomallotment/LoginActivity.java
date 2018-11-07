@@ -1,5 +1,6 @@
 package rishabh4.bhatnagar.roomallotment;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -34,13 +34,18 @@ public class LoginActivity extends AppCompatActivity {
                                     passwordET.getText().toString())
                             ){
                         // user is validated.
+                        // Redirect to main activity.
+                        Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(mainIntent);
+
+                        finish();   // finishing login activity.
                     }
                     else{
                         // wrong credentials.
                         Utilities.showSnackbarLong(parentLayout, resources.getString(R.string.not_authenticated);
                     }
                 } else {
-                    // uname or password empty.
+                    // uname or password field empty.
                     Utilities.showSnackbarShort(parentLayout, resources.getString(R.string.fill_fields));
                 }
             }
