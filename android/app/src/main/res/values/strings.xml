@@ -4,6 +4,10 @@
     <string name="password_prompt">Enter the password</string>
     <string name="uname_prompt">Enter the username</string>
 
-    <string name="not_authenticated">You are not authennticated</string>
     <string name="fill_fields">Please fill the fields!!</string>
+    <string name="not_authenticated">You are not authennticated</string>
+    <string name="previous_events">previous_events</string>
+    <string name="pending_events">pending events</string>
+    <string name="accepted_events">accepted events</string>
+    <string name="rejected_events">rejected events</string>
 </resources>

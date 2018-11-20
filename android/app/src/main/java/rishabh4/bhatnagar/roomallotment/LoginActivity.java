@@ -2,12 +2,14 @@ package rishabh4.bhatnagar.roomallotment;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,27 +29,45 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // hide the keyboard when user clicks the loginButton.
+                Utilities.hideSoftKeyboard(LoginActivity.this);
+
                 if(!areCredentialsEmpty()){
+
+                    // credentials are not empty
                     if(DatabaseManager.
                             validateUser(
                                     usernameET.getText().toString(),
                                     passwordET.getText().toString())
                             ){
+
                         // user is validated.
                         // Redirect to main activity.
                         Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(mainIntent);
 
                         finish();   // finishing login activity.
+                        // finishing to forbid user from returning to login page.
                     }
                     else{
                         // wrong credentials.
-                        Utilities.showSnackbarLong(parentLayout, resources.getString(R.string.not_authenticated);
+                        Utilities.showSnackbarLong(parentLayout, resources.getString(R.string.not_authenticated));
                     }
                 } else {
-                    // uname or password field empty.
+                    // uname or password field is empty.
                     Utilities.showSnackbarShort(parentLayout, resources.getString(R.string.fill_fields));
                 }
+            }
+        });
+
+        //whenever user clicks on any parent layout, hide the keyboard.
+        parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(LoginActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                Utilities.hideSoftKeyboard(LoginActivity.this);
+                Utilities.clearFocus(LoginActivity.this);
             }
         });
     }
